@@ -24,75 +24,30 @@ function ArrowUpRight() {
 }
 
 function SectionBridge({ variant }: { variant: "hero-services" | "services-accompaniment" | "accompaniment-team" | "team-contact" }) {
-  const variants = {
-    "hero-services": {
-      className: "bridge-hero-services",
-      paths: [
-        "M0 56 C160 56 270 56 382 48 C500 40 620 40 742 48 C850 55 925 58 1000 58",
-        "M0 62 C160 62 270 62 382 54 C500 46 620 46 742 54 C850 61 925 64 1000 64",
-        "M0 68 C160 68 270 68 382 60 C500 52 620 52 742 60 C850 67 925 70 1000 70",
-      ],
-    },
-    "services-accompaniment": {
-      className: "bridge-services-accompaniment",
-      paths: [
-        "M0 58 C150 58 240 58 334 52 C452 44 560 38 656 40 C772 43 874 53 1000 60",
-        "M0 64 C150 64 240 64 334 58 C452 50 560 44 656 46 C772 49 874 59 1000 66",
-        "M0 70 C150 70 240 70 334 64 C452 56 560 50 656 52 C772 55 874 65 1000 72",
-      ],
-    },
-    "accompaniment-team": {
-      className: "bridge-accompaniment-team",
-      paths: [
-        "M0 60 C144 60 252 52 372 44 C486 38 612 38 726 46 C836 54 920 58 1000 58",
-        "M0 66 C144 66 252 58 372 50 C486 44 612 44 726 52 C836 60 920 64 1000 64",
-        "M0 72 C144 72 252 64 372 56 C486 50 612 50 726 58 C836 66 920 70 1000 70",
-      ],
-    },
-    "team-contact": {
-      className: "bridge-team-contact",
-      paths: [
-        "M0 58 C168 58 284 58 404 52 C518 46 628 42 724 44 C834 46 918 54 1000 60",
-        "M0 64 C168 64 284 64 404 58 C518 52 628 48 724 50 C834 52 918 60 1000 66",
-        "M0 70 C168 70 284 70 404 64 C518 58 628 54 724 56 C834 58 918 66 1000 72",
-      ],
-    },
-  } as const;
-
-  const config = variants[variant];
-
-  return (
-    <div className={`section-bridge ${config.className}`} aria-hidden="true">
-      <svg viewBox="0 0 1000 76" preserveAspectRatio="none">
-        <path className="bridge-line bridge-line-gold" d={config.paths[0]} />
-        <path className="bridge-line bridge-line-navy" d={config.paths[1]} />
-        <path className="bridge-line bridge-line-silver" d={config.paths[2]} />
-      </svg>
-    </div>
-  );
+  return <div className={`section-seam section-seam-${variant}`} aria-hidden="true" />;
 }
 
 function SectionEdgeLines({ variant }: { variant: "services" | "accompaniment" | "team" | "contact" }) {
-  const leftPaths = [
-    "M44 0 H10 C10 96 12 176 16 286 C20 408 26 496 22 614 C18 730 10 842 12 1000",
-    "M44 0 H18 C18 104 22 196 28 316 C34 432 32 532 24 642 C16 758 14 870 18 1000",
-    "M44 0 H28 C28 114 24 222 18 348 C12 470 12 584 18 704 C24 822 28 912 30 1000",
-  ] as const;
-
-  const rightPaths = [
-    "M0 0 H34 C34 96 32 176 28 286 C24 408 18 496 22 614 C26 730 34 842 32 1000",
-    "M0 0 H26 C26 104 22 196 16 316 C10 432 12 532 20 642 C28 758 30 870 26 1000",
-    "M0 0 H16 C16 114 20 222 26 348 C32 470 32 584 26 704 C20 822 16 912 14 1000",
-  ] as const;
-
-  const paths = variant === "services" || variant === "team" ? leftPaths : rightPaths;
+  const isRight = variant === "accompaniment" || variant === "contact";
 
   return (
-    <div className={`section-edge-lines section-edge-lines-${variant}`} aria-hidden="true">
-      <svg viewBox="0 0 44 1000" preserveAspectRatio="none">
-        <path className="section-edge-line section-edge-gold" d={paths[0]} />
-        <path className="section-edge-line section-edge-navy" d={paths[1]} />
-        <path className="section-edge-line section-edge-silver" d={paths[2]} />
+    <div className={`section-signature section-signature-${variant}${isRight ? " is-right" : " is-left"}`} aria-hidden="true">
+      <svg viewBox="0 0 64 1000" preserveAspectRatio="none" className="section-signature-svg">
+        <path className="signature-terminal" d="M2 0 H62" />
+        <path className="signature-terminal signature-terminal-bottom" d="M2 1000 H62" />
+
+        <path
+          className="signature-line signature-gold"
+          d="M14 0 C14 120 14 210 17 285 C20 340 42 365 45 430 C48 500 19 535 16 605 C13 680 37 710 41 775 C45 845 44 915 44 1000"
+        />
+        <path
+          className="signature-line signature-navy"
+          d="M31 0 C31 120 31 210 31 285 C31 340 20 370 20 430 C20 500 44 535 44 605 C44 680 24 710 24 775 C24 845 31 915 31 1000"
+        />
+        <path
+          className="signature-line signature-silver"
+          d="M48 0 C48 120 48 210 45 285 C42 340 30 365 31 430 C32 500 28 535 32 605 C36 680 19 710 20 775 C21 845 18 915 18 1000"
+        />
       </svg>
     </div>
   );

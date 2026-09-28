@@ -1322,111 +1322,175 @@ section { scroll-margin-top: 84px; }
   }
 }
 
-/* V10.16 — el trenzado llega hasta el límite visual inferior de cada section */
+/* V10.21 — conserva exactamente el trenzado V10.15 y solo corrige el remate inferior */
+.connected-section {
+  position: relative;
+  overflow: hidden;
+}
+
 .section-edge-lines {
-  overflow: visible;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
 }
 
 .section-edge-lines svg {
   top: 0;
-  bottom: auto;
-  height: calc(100% + 74px);
-  min-height: calc(100% + 74px);
+  bottom: 0;
+  height: 100%;
+  min-height: 100%;
+}
+
+/* El path ya termina en y=1000; este bloque asegura que ese punto coincida con el borde real del section. */
+.section-edge-line {
+  vector-effect: non-scaling-stroke;
 }
 
 @media (max-width: 900px) {
   .section-edge-lines svg {
-    height: calc(100% + 60px);
-    min-height: calc(100% + 60px);
+    height: 100%;
+    min-height: 100%;
   }
 }
 
 @media (max-width: 760px) {
   .section-edge-lines svg {
-    height: calc(100% + 48px);
-    min-height: calc(100% + 48px);
+    height: 100%;
+    min-height: 100%;
+  }
+}
+
+/* V10.22 — firma lateral limpia y consistente */
+.section-bridge {
+  display: none !important;
+}
+
+.section-seam {
+  height: 1px;
+  background: rgba(16, 30, 49, 0.10);
+}
+
+.hero-shell + .section-seam {
+  background: rgba(247, 246, 242, 0.15);
+}
+
+.connected-section {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.connected-section > .shell {
+  position: relative;
+  z-index: 2;
+  width: min(calc(100% - 120px), 1280px);
+}
+
+.section-signature {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 64px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.section-signature.is-left {
+  left: 0;
+}
+
+.section-signature.is-right {
+  right: 0;
+  transform: scaleX(-1);
+}
+
+.section-signature-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.signature-line,
+.signature-terminal {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.signature-terminal {
+  stroke: rgba(16, 30, 49, 0.18);
+  stroke-width: 0.8px;
+}
+
+.signature-line {
+  stroke-width: 1.35px;
+}
+
+.signature-gold {
+  stroke: var(--gold);
+  opacity: 0.96;
+}
+
+.signature-navy {
+  stroke: var(--ink);
+  opacity: 0.76;
+}
+
+.signature-silver {
+  stroke: var(--silver);
+  opacity: 0.96;
+}
+
+.team-section .signature-terminal {
+  stroke: rgba(247, 246, 242, 0.16);
+}
+
+.team-section .signature-navy {
+  stroke: #6d86a1;
+  opacity: 0.92;
+}
+
+.team-section .signature-gold,
+.team-section .signature-silver {
+  opacity: 1;
+}
+
+@media (max-width: 1024px) {
+  .connected-section > .shell {
+    width: min(calc(100% - 92px), 1280px);
+  }
+
+  .section-signature {
+    width: 52px;
+  }
+}
+
+@media (max-width: 760px) {
+  .connected-section > .shell {
+    width: min(calc(100% - 62px), 1280px);
+  }
+
+  .section-signature {
+    width: 36px;
+  }
+
+  .signature-line {
+    stroke-width: 1.25px;
+  }
+
+  .signature-terminal {
+    stroke-width: 0.7px;
   }
 }
 
 @media (max-width: 390px) {
-  .section-edge-lines svg {
-    height: calc(100% + 42px);
-    min-height: calc(100% + 42px);
-  }
-}
-
-/* V10.17 — las líneas llegan hasta el borde visual REAL de la transición.
-   El puente cambia de fondo en su mitad: el trenzado baja exactamente hasta ahí. */
-.connected-section {
-  position: relative;
-  z-index: 5;
-  overflow: visible;
-  isolation: isolate;
-  --edge-tail: 36px;
-}
-
-.section-bridge {
-  z-index: 3;
-}
-
-.section-edge-lines {
-  z-index: 6;
-  overflow: visible;
-}
-
-.section-edge-lines svg {
-  top: 0;
-  bottom: auto;
-  height: calc(100% + var(--edge-tail));
-  min-height: calc(100% + var(--edge-tail));
-}
-
-@media (max-width: 900px) {
-  .connected-section {
-    --edge-tail: 29px;
-  }
-}
-
-@media (max-width: 760px) {
-  .connected-section {
-    --edge-tail: 23px;
-  }
-}
-
-@media (max-width: 520px) {
-  .connected-section {
-    --edge-tail: 20px;
-  }
-}
-
-
-/* V10.19 — puentes y bordes laterales alineados, sin cruces bruscos */
-.section-bridge {
-  height: 76px;
-}
-
-.section-edge-lines svg {
-  width: clamp(34px, 3.5vw, 44px);
-}
-
-@media (max-width: 900px) {
-  .section-bridge {
-    height: 72px;
-  }
-}
-
-@media (max-width: 760px) {
-  .section-bridge {
-    height: 66px;
+  .connected-section > .shell {
+    width: min(calc(100% - 52px), 1280px);
   }
 
-  .section-edge-lines svg {
-    width: 28px;
-  }
-}
-
-@media (max-width: 520px) {
-  .section-edge-lines svg {
-    width: 24px;
+  .section-signature {
+    width: 30px;
   }
 }
