@@ -1354,3 +1354,47 @@ section { scroll-margin-top: 84px; }
     min-height: calc(100% + 42px);
   }
 }
+
+/* V10.17 — las líneas llegan hasta el borde visual REAL de la transición.
+   El puente cambia de fondo en su mitad: el trenzado baja exactamente hasta ahí. */
+.connected-section {
+  position: relative;
+  z-index: 5;
+  overflow: visible;
+  isolation: isolate;
+  --edge-tail: 36px;
+}
+
+.section-bridge {
+  z-index: 3;
+}
+
+.section-edge-lines {
+  z-index: 6;
+  overflow: visible;
+}
+
+.section-edge-lines svg {
+  top: 0;
+  bottom: auto;
+  height: calc(100% + var(--edge-tail));
+  min-height: calc(100% + var(--edge-tail));
+}
+
+@media (max-width: 900px) {
+  .connected-section {
+    --edge-tail: 29px;
+  }
+}
+
+@media (max-width: 760px) {
+  .connected-section {
+    --edge-tail: 23px;
+  }
+}
+
+@media (max-width: 520px) {
+  .connected-section {
+    --edge-tail: 20px;
+  }
+}
