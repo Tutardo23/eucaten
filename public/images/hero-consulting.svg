@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d8d0c6"/><stop offset=".52" stop-color="#b8aa9d"/><stop offset="1" stop-color="#78695f"/></linearGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#f3eee6"/><stop offset="1" stop-color="#d9cec0"/></linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="58"/></filter>
+    <filter id="shadow"><feDropShadow dx="0" dy="32" stdDeviation="28" flood-color="#302722" flood-opacity=".25"/></filter>
+  </defs>
+  <rect width="1200" height="1500" fill="url(#bg)"/>
+  <ellipse cx="140" cy="210" rx="520" ry="430" fill="#6b2431" opacity=".46" filter="url(#blur)"/>
+  <path d="M860 0h340v1500H690c120-260 176-510 167-750-8-252-93-502-255-750Z" fill="#efe8df" opacity=".72"/>
+  <rect x="165" y="250" width="610" height="850" rx="3" fill="url(#paper)" transform="rotate(-3 165 250)" filter="url(#shadow)"/>
+  <rect x="247" y="342" width="440" height="2" fill="#6b2431" opacity=".65"/>
+  <rect x="247" y="402" width="355" height="1" fill="#5b514b" opacity=".38"/>
+  <rect x="247" y="450" width="392" height="1" fill="#5b514b" opacity=".3"/>
+  <rect x="247" y="498" width="320" height="1" fill="#5b514b" opacity=".25"/>
+  <circle cx="512" cy="762" r="122" fill="none" stroke="#6b2431" stroke-width="2" opacity=".42"/>
+  <circle cx="512" cy="762" r="62" fill="none" stroke="#6b2431" stroke-width="2" opacity=".42"/>
+  <path d="M390 762h244M512 640v244" stroke="#6b2431" stroke-width="2" opacity=".42"/>
+  <text x="247" y="320" font-family="Arial" font-size="22" letter-spacing="7" fill="#6b2431">EUCATEN / DOCUMENTO</text>
+  <text x="247" y="1002" font-family="Georgia" font-size="54" font-style="italic" fill="#1e1b19">[ material de marca ]</text>
+  <rect x="90" y="1170" width="455" height="160" fill="#201d1b" opacity=".92"/>
+  <text x="130" y="1230" font-family="Arial" font-size="18" letter-spacing="5" fill="#efe8df">CONSULTORA / BOCETO</text>
+  <text x="130" y="1283" font-family="Georgia" font-size="35" font-style="italic" fill="#efe8df">dirección editorial</text>
+</svg>

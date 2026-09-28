@@ -1,0 +1,65 @@
+<svg width="900" height="760" viewBox="0 0 900 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="navyMain" x1="106" y1="404" x2="714" y2="223" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0F2137"/>
+      <stop offset="0.55" stop-color="#173055"/>
+      <stop offset="1" stop-color="#223C62"/>
+    </linearGradient>
+    <linearGradient id="navyFold" x1="389" y1="304" x2="712" y2="375" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#09172A"/>
+      <stop offset="1" stop-color="#24466F"/>
+    </linearGradient>
+    <linearGradient id="bronzeMain" x1="196" y1="578" x2="741" y2="399" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#D8B56A"/>
+      <stop offset="0.45" stop-color="#B48A42"/>
+      <stop offset="1" stop-color="#8E6A33"/>
+    </linearGradient>
+    <linearGradient id="bronzeFold" x1="316" y1="507" x2="639" y2="602" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E7C981"/>
+      <stop offset="1" stop-color="#A67B39"/>
+    </linearGradient>
+    <linearGradient id="silverMain" x1="502" y1="72" x2="482" y2="690" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#D8DCE1"/>
+      <stop offset="0.5" stop-color="#B7BCC2"/>
+      <stop offset="1" stop-color="#999FA8"/>
+    </linearGradient>
+    <linearGradient id="silverFold" x1="421" y1="240" x2="571" y2="506" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#EEF1F4"/>
+      <stop offset="1" stop-color="#A4ABB4"/>
+    </linearGradient>
+    <filter id="softShadow" x="70" y="40" width="760" height="640" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="26" stdDeviation="24" flood-color="#0E1B2E" flood-opacity="0.10"/>
+    </filter>
+    <filter id="ambient" x="0" y="0" width="900" height="760" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="40"/>
+    </filter>
+    <clipPath id="clipNavy">
+      <path d="M108 396C164 350 215 328 271 334C325 340 372 384 432 398C497 413 566 398 629 359C654 344 678 329 712 305C738 287 767 283 786 290C807 297 820 314 824 334C829 357 820 381 802 395C772 420 745 438 718 455C653 496 591 516 525 516C463 516 412 497 365 472C314 446 272 416 223 411C179 407 144 420 120 444C104 460 80 460 62 446C45 433 39 410 52 392C70 367 87 353 108 396Z"/>
+    </clipPath>
+    <clipPath id="clipBronze">
+      <path d="M204 542C243 511 281 489 326 480C376 470 425 472 474 487C527 504 581 540 631 540C669 540 706 521 748 478C765 461 791 456 810 465C829 474 841 495 840 516C839 539 829 557 810 574C757 621 699 646 637 646C566 646 505 610 452 592C413 579 377 577 337 586C303 593 270 607 226 636C207 649 180 650 162 638C143 626 133 605 135 583C138 564 153 548 172 540C182 536 193 536 204 542Z"/>
+    </clipPath>
+    <clipPath id="clipSilver">
+      <path d="M502 74C525 74 546 88 557 106C566 123 568 143 564 161C547 236 527 296 520 364C513 431 519 500 548 561C566 600 595 638 639 688C654 705 660 730 649 749C638 769 617 779 596 778C574 777 556 766 541 751C491 698 455 651 430 600C398 537 390 468 395 389C401 304 423 228 445 150C451 126 466 104 485 90C489 87 494 84 502 74Z"/>
+    </clipPath>
+  </defs>
+
+  <ellipse cx="529" cy="393" rx="250" ry="210" fill="#C9B996" opacity="0.18" filter="url(#ambient)"/>
+
+  <g filter="url(#softShadow)">
+    <g clip-path="url(#clipNavy)">
+      <path d="M108 396C164 350 215 328 271 334C325 340 372 384 432 398C497 413 566 398 629 359C654 344 678 329 712 305C738 287 767 283 786 290C807 297 820 314 824 334C829 357 820 381 802 395C772 420 745 438 718 455C653 496 591 516 525 516C463 516 412 497 365 472C314 446 272 416 223 411C179 407 144 420 120 444C104 460 80 460 62 446C45 433 39 410 52 392C70 367 87 353 108 396Z" fill="url(#navyMain)"/>
+      <path d="M391 392C470 436 576 438 666 389C689 377 715 361 735 348C761 330 785 316 816 322C829 324 841 329 851 336L851 399C836 411 822 421 808 430C766 458 739 475 709 490C639 526 573 544 504 546C468 548 427 546 394 541L327 474C351 469 363 451 387 424C399 409 403 398 391 392Z" fill="url(#navyFold)" opacity="0.75"/>
+    </g>
+
+    <g clip-path="url(#clipBronze)">
+      <path d="M204 542C243 511 281 489 326 480C376 470 425 472 474 487C527 504 581 540 631 540C669 540 706 521 748 478C765 461 791 456 810 465C829 474 841 495 840 516C839 539 829 557 810 574C757 621 699 646 637 646C566 646 505 610 452 592C413 579 377 577 337 586C303 593 270 607 226 636C207 649 180 650 162 638C143 626 133 605 135 583C138 564 153 548 172 540C182 536 193 536 204 542Z" fill="url(#bronzeMain)"/>
+      <path d="M342 492C427 483 516 520 578 553C624 578 680 592 728 572C760 559 786 540 821 505C832 494 844 487 857 484V548C824 579 799 597 766 613C724 634 680 640 634 634C577 627 525 603 476 586C426 569 378 563 329 573C287 582 250 602 217 620L185 597C213 556 279 499 342 492Z" fill="url(#bronzeFold)" opacity="0.85"/>
+    </g>
+
+    <g clip-path="url(#clipSilver)">
+      <path d="M502 74C525 74 546 88 557 106C566 123 568 143 564 161C547 236 527 296 520 364C513 431 519 500 548 561C566 600 595 638 639 688C654 705 660 730 649 749C638 769 617 779 596 778C574 777 556 766 541 751C491 698 455 651 430 600C398 537 390 468 395 389C401 304 423 228 445 150C451 126 466 104 485 90C489 87 494 84 502 74Z" fill="url(#silverMain)"/>
+      <path d="M501 181C489 272 474 386 485 469C493 534 516 596 553 656C528 631 506 606 487 578C450 523 438 457 441 380C444 314 457 251 468 195L501 181Z" fill="url(#silverFold)" opacity="0.85"/>
+    </g>
+  </g>
+</svg>

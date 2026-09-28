@@ -1,0 +1,38 @@
+{
+  "name": "eucaten-boceto-v7",
+  "version": "0.7.0",
+  "private": true,
+  "scripts": {
+    "clean:legacy": "node scripts/clean-legacy.mjs",
+    "predev": "node scripts/clean-legacy.mjs",
+    "dev": "next dev",
+    "pretypecheck": "node scripts/clean-legacy.mjs",
+    "typecheck": "tsc --noEmit",
+    "prebuild": "node scripts/clean-legacy.mjs",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@react-three/fiber": "^9.8.1",
+    "atropos": "2.0.2",
+    "embla-carousel-react": "8.6.0",
+    "gsap": "^3.15.0",
+    "next": "16.3.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "split-type": "0.3.4",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@types/three": "^0.186.0",
+    "eslint": "latest",
+    "eslint-config-next": "16.3.5",
+    "tailwindcss": "4.3.3",
+    "typescript": "7.0.2"
+  }
+}

@@ -1,0 +1,20 @@
+<svg width="1400" height="900" viewBox="0 0 1400 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1400" y2="900"><stop stop-color="#EEE8DE"/><stop offset="1" stop-color="#CFC2B4"/></linearGradient>
+<filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".73" numOctaves="4"/></filter>
+</defs>
+<rect width="1400" height="900" fill="url(#bg)"/>
+<rect x="126" y="100" width="510" height="700" fill="#F8F4ED" transform="rotate(-3 126 100)"/>
+<rect x="650" y="170" width="540" height="610" fill="#6D2632" transform="rotate(5 650 170)"/>
+<path d="M0 760C400 520 920 500 1400 620V900H0V760Z" fill="#201C19" fill-opacity=".15"/>
+<circle cx="912" cy="430" r="180" stroke="#E5D7C8" stroke-opacity=".48" stroke-width="2"/>
+<circle cx="912" cy="430" r="96" stroke="#E5D7C8" stroke-opacity=".34" stroke-width="2"/>
+<path d="M828 430H996" stroke="#E5D7C8" stroke-opacity=".35" stroke-width="2"/>
+<path d="M912 346V514" stroke="#E5D7C8" stroke-opacity=".35" stroke-width="2"/>
+<rect x="220" y="250" width="230" height="4" fill="#29231F"/>
+<rect x="220" y="295" width="325" height="2" fill="#29231F" fill-opacity=".25"/>
+<rect x="220" y="323" width="290" height="2" fill="#29231F" fill-opacity=".25"/>
+<rect x="220" y="351" width="315" height="2" fill="#29231F" fill-opacity=".25"/>
+<text x="220" y="215" font-family="Georgia,serif" font-size="56" fill="#29231F">EUCATEN</text>
+<rect width="1400" height="900" filter="url(#grain)" opacity=".045"/>
+</svg>
