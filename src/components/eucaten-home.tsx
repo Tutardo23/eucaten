@@ -28,33 +28,33 @@ function SectionBridge({ variant }: { variant: "hero-services" | "services-accom
     "hero-services": {
       className: "bridge-hero-services",
       paths: [
-        "M0 18 C170 18 230 18 310 24 C430 34 560 34 690 24 C780 18 865 18 1000 18",
-        "M0 25 C180 25 245 25 325 31 C445 41 575 41 705 31 C795 25 875 25 1000 25",
-        "M0 32 C190 32 260 32 340 38 C460 48 590 48 720 38 C810 32 890 32 1000 32",
+        "M0 56 C160 56 270 56 382 48 C500 40 620 40 742 48 C850 55 925 58 1000 58",
+        "M0 62 C160 62 270 62 382 54 C500 46 620 46 742 54 C850 61 925 64 1000 64",
+        "M0 68 C160 68 270 68 382 60 C500 52 620 52 742 60 C850 67 925 70 1000 70",
       ],
     },
     "services-accompaniment": {
       className: "bridge-services-accompaniment",
       paths: [
-        "M0 36 C120 36 190 36 260 31 C370 23 470 12 565 12 C670 12 760 28 835 32 C895 36 945 36 1000 36",
-        "M0 43 C120 43 190 43 260 38 C370 30 470 19 565 19 C670 19 760 35 835 39 C895 43 945 43 1000 43",
-        "M0 50 C120 50 190 50 260 45 C370 37 470 26 565 26 C670 26 760 42 835 46 C895 50 945 50 1000 50",
+        "M0 58 C150 58 240 58 334 52 C452 44 560 38 656 40 C772 43 874 53 1000 60",
+        "M0 64 C150 64 240 64 334 58 C452 50 560 44 656 46 C772 49 874 59 1000 66",
+        "M0 70 C150 70 240 70 334 64 C452 56 560 50 656 52 C772 55 874 65 1000 72",
       ],
     },
     "accompaniment-team": {
       className: "bridge-accompaniment-team",
       paths: [
-        "M0 18 C85 18 150 18 220 23 C330 31 420 48 535 48 C640 48 735 25 825 20 C885 18 935 18 1000 18",
-        "M0 25 C85 25 150 25 220 30 C330 38 420 55 535 55 C640 55 735 32 825 27 C885 25 935 25 1000 25",
-        "M0 32 C85 32 150 32 220 37 C330 45 420 62 535 62 C640 62 735 39 825 34 C885 32 935 32 1000 32",
+        "M0 60 C144 60 252 52 372 44 C486 38 612 38 726 46 C836 54 920 58 1000 58",
+        "M0 66 C144 66 252 58 372 50 C486 44 612 44 726 52 C836 60 920 64 1000 64",
+        "M0 72 C144 72 252 64 372 56 C486 50 612 50 726 58 C836 66 920 70 1000 70",
       ],
     },
     "team-contact": {
       className: "bridge-team-contact",
       paths: [
-        "M0 42 C130 42 220 42 310 34 C405 26 485 12 595 12 C700 12 790 23 875 33 C925 39 965 42 1000 42",
-        "M0 49 C130 49 220 49 310 41 C405 33 485 19 595 19 C700 19 790 30 875 40 C925 46 965 49 1000 49",
-        "M0 56 C130 56 220 56 310 48 C405 40 485 26 595 26 C700 26 790 37 875 47 C925 53 965 56 1000 56",
+        "M0 58 C168 58 284 58 404 52 C518 46 628 42 724 44 C834 46 918 54 1000 60",
+        "M0 64 C168 64 284 64 404 58 C518 52 628 48 724 50 C834 52 918 60 1000 66",
+        "M0 70 C168 70 284 70 404 64 C518 58 628 54 724 56 C834 58 918 66 1000 72",
       ],
     },
   } as const;
@@ -63,7 +63,7 @@ function SectionBridge({ variant }: { variant: "hero-services" | "services-accom
 
   return (
     <div className={`section-bridge ${config.className}`} aria-hidden="true">
-      <svg viewBox="0 0 1000 72" preserveAspectRatio="none">
+      <svg viewBox="0 0 1000 76" preserveAspectRatio="none">
         <path className="bridge-line bridge-line-gold" d={config.paths[0]} />
         <path className="bridge-line bridge-line-navy" d={config.paths[1]} />
         <path className="bridge-line bridge-line-silver" d={config.paths[2]} />
@@ -73,18 +73,26 @@ function SectionBridge({ variant }: { variant: "hero-services" | "services-accom
 }
 
 function SectionEdgeLines({ variant }: { variant: "services" | "accompaniment" | "team" | "contact" }) {
-  const braidPaths = [
-    "M6 0 C7 155 38 220 35 390 C32 545 7 610 12 760 C15 865 34 930 40 1000",
-    "M22 0 C27 165 8 275 13 430 C18 585 39 650 32 795 C27 885 12 945 8 1000",
-    "M39 0 C34 175 15 295 20 455 C25 620 34 730 21 850 C16 920 28 972 31 1000",
+  const leftPaths = [
+    "M44 0 H10 C10 96 12 176 16 286 C20 408 26 496 22 614 C18 730 10 842 12 1000",
+    "M44 0 H18 C18 104 22 196 28 316 C34 432 32 532 24 642 C16 758 14 870 18 1000",
+    "M44 0 H28 C28 114 24 222 18 348 C12 470 12 584 18 704 C24 822 28 912 30 1000",
   ] as const;
+
+  const rightPaths = [
+    "M0 0 H34 C34 96 32 176 28 286 C24 408 18 496 22 614 C26 730 34 842 32 1000",
+    "M0 0 H26 C26 104 22 196 16 316 C10 432 12 532 20 642 C28 758 30 870 26 1000",
+    "M0 0 H16 C16 114 20 222 26 348 C32 470 32 584 26 704 C20 822 16 912 14 1000",
+  ] as const;
+
+  const paths = variant === "services" || variant === "team" ? leftPaths : rightPaths;
 
   return (
     <div className={`section-edge-lines section-edge-lines-${variant}`} aria-hidden="true">
       <svg viewBox="0 0 44 1000" preserveAspectRatio="none">
-        <path className="section-edge-line section-edge-gold" d={braidPaths[0]} />
-        <path className="section-edge-line section-edge-navy" d={braidPaths[1]} />
-        <path className="section-edge-line section-edge-silver" d={braidPaths[2]} />
+        <path className="section-edge-line section-edge-gold" d={paths[0]} />
+        <path className="section-edge-line section-edge-navy" d={paths[1]} />
+        <path className="section-edge-line section-edge-silver" d={paths[2]} />
       </svg>
     </div>
   );

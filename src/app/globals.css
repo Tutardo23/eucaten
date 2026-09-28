@@ -1398,3 +1398,35 @@ section { scroll-margin-top: 84px; }
     --edge-tail: 20px;
   }
 }
+
+
+/* V10.19 — puentes y bordes laterales alineados, sin cruces bruscos */
+.section-bridge {
+  height: 76px;
+}
+
+.section-edge-lines svg {
+  width: clamp(34px, 3.5vw, 44px);
+}
+
+@media (max-width: 900px) {
+  .section-bridge {
+    height: 72px;
+  }
+}
+
+@media (max-width: 760px) {
+  .section-bridge {
+    height: 66px;
+  }
+
+  .section-edge-lines svg {
+    width: 28px;
+  }
+}
+
+@media (max-width: 520px) {
+  .section-edge-lines svg {
+    width: 24px;
+  }
+}
