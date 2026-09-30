@@ -6,30 +6,30 @@ export const siteContent = {
   },
   hero: {
     eyebrow: "Estudio Jurídico & Consultoría",
-    title: "Asesoramiento legal para empresas en movimiento.",
+    title: "Soluciones legales y de cumplimiento normativo para empresas en movimiento.",
     lead:
-      "Acompañamos la constitución, la adecuación regulatoria y la gestión diaria del cumplimiento normativo, con apoyo integral o intervenciones puntuales.",
-    primaryCta: "Ver servicios",
+      "Apoyamos a las empresas en su constitución, puesta en marcha, adecuación regulatoria, defensa y gestión del cumplimiento normativo. Trabajamos tanto en proyectos específicos como en el desarrollo cotidiano de sus operaciones y necesidades.",
+    primaryCta: "Conocer servicios",
     secondaryCta: "Contactar",
   },
   servicesIntro: {
     label: "Servicios",
-    title: "Cómo podemos ayudarte",
+    title: "Cómo podemos acompañar a su empresa",
     body:
-      "Estructuramos, gestionamos y acompañamos a tu empresa según sus necesidades.",
+      "Estructuramos, gestionamos y acompañamos las necesidades legales, regulatorias y de cumplimiento de cada organización.",
   },
   services: [
     {
       number: "01",
       title: "Sociedades, contratos y marcas",
       body:
-        "Constitución de sociedades, acuerdos de socios, reformas, contratos comerciales, gobierno corporativo, registro y protección de marcas.",
+        "Constitución de sociedades, acuerdos de socios, reformas, contratos comerciales, gobierno corporativo, apertura de cuentas bancarias, registro y protección de marcas.",
     },
     {
       number: "02",
       title: "Sujetos Obligados Ley 25.246",
       body:
-        "Análisis regulatorio del modelo de negocio para Sujetos Obligados ante la Unidad de Información Financiera (UIF), inscripciones ante la UIF, Banco Central (BCRA) y Comisión Nacional de Valores (CNV), adecuación jurídica y regulatoria de productos digitales.",
+        "Análisis regulatorio del modelo de negocio para Sujetos Obligados ante la Unidad de Información Financiera (UIF), inscripciones ante la UIF, Banco Central (BCRA) y Comisión Nacional de Valores (CNV), adecuación jurídica y regulatoria de productos digitales, con especial experiencia en PSP, fintech y empresas de tecnología financiera.",
     },
     {
       number: "03",
@@ -41,7 +41,7 @@ export const siteContent = {
       number: "04",
       title: "Prevención de fraude",
       body:
-        "Diseño e implementación de Marcos Integrales para la Gestión del Riesgo de Fraude en PSP (Com. “A” 8471 del BCRA): autoevaluación del riesgo de fraude, monitoreo, canales de denuncia, respuesta a incidentes, capacitación y reportes.",
+        "Diseño e implementación de marcos integrales para la Gestión del Riesgo de Fraude en PSP (Com. “A” 8471 del BCRA): autoevaluación del riesgo de fraude, monitoreo, canales de denuncia, respuesta a incidentes, capacitación y reportes.",
     },
     {
       number: "05",
@@ -63,32 +63,37 @@ export const siteContent = {
     },
     {
       number: "08",
-      title: "Capacitación y acompañamiento",
+      title: "Capacitación",
       body:
-        "Formación para directivos y equipos, actualización normativa y soporte jurídico y de compliance adaptado a cada organización. Acompañamos desde la estructuración y puesta en marcha hasta la gestión diaria, las inspecciones y la defensa ante organismos de control y de justicia.",
+        "Formación para directivos y equipos, actualización normativa, soporte jurídico y de compliance adaptado a las necesidades de cada organización.",
     },
   ],
   accompaniment: {
-    label: "Acompañamiento",
-    title: "En cada etapa, el acompañamiento que necesitás.",
+    label: "Nuestro diferencial",
+    title: "Acompañamos desde un enfoque integral y transversal.",
     lead:
-      "Podemos acompañar todo el recorrido de tu empresa o intervenir en una necesidad puntual.",
-    note: "Podemos incorporarnos en cualquiera de estos momentos, según lo que necesite cada organización.",
+      "Siempre estamos. Desde un apoyo puntual hasta las gestiones recurrentes que desee delegar.",
+    note: "Estamos disponibles en todo momento para usted. Conversemos.",
     moments: [
       {
         number: "01",
         title: "Constitución",
-        body: "Sociedades, acuerdos y estructura jurídica.",
+        body: "Sociedades, acuerdos, contratos y estructura jurídica para la puesta en marcha.",
       },
       {
         number: "02",
         title: "Adecuación",
-        body: "Encuadre regulatorio y programas de cumplimiento.",
+        body: "Encuadre regulatorio y programas de cumplimiento adaptados a cada actividad.",
       },
       {
         number: "03",
         title: "Gestión diaria",
-        body: "Asesoramiento, capacitación y soporte continuo.",
+        body: "Soporte jurídico, regulatorio y de compliance para las necesidades cotidianas.",
+      },
+      {
+        number: "04",
+        title: "Patrocinio Legal y Defensa",
+        body: "Asesoramos, patrocinamos y defendemos a nuestros clientes en instancias administrativas, prejudiciales y judiciales.",
       },
     ],
   },
@@ -98,11 +103,24 @@ export const siteContent = {
     people: [
       {
         number: "01",
+        name: "Catalina María de la Torre",
+        role: "Abogada | Socia y Fundadora de EUCATEN",
+        image: "/team/catalina-de-la-torre.png",
+        imageWidth: 502,
+        imageHeight: 616,
+        paragraphs: [
+          "Especialista en compliance, derecho penal y asesoramiento jurídico para la radicación y expansión de empresas en la región. Es docente de grado de la carrera de Abogacía en la Universidad Nacional de Tucumán y de posgrado en Prevención de Lavado de Activos (módulo PSP) en la Universidad Católica Argentina.",
+          "Cuenta con sólida experiencia en el diseño e implementación de sistemas de cumplimiento en Argentina y otras jurisdicciones de Latinoamérica.",
+          "Ha desarrollado y liderado procesos de expansión regional, adecuación regulatoria, adaptación contractual a marcos locales, evaluación de riesgos, debida diligencia y monitoreo transaccional, junto con la elaboración de programas, políticas y procedimientos en prevención de lavado, integridad y transparencia.",
+        ],
+      },
+      {
+        number: "02",
         name: "María Eugenia Videla",
         role: "Abogada | Socia de EUCATEN",
         image: "/team/maria-eugenia-videla.png",
-        imageWidth: 1903,
-        imageHeight: 752,
+        imageWidth: 1254,
+        imageHeight: 1254,
         paragraphs: [
           "Especialista en constitución de sociedades, protección de datos personales y litigios tanto administrativos como judiciales.",
           "Cuenta con amplia experiencia en la estructuración y organización jurídica de empresas, la gestión de inscripciones ante organismos nacionales de control y la representación en litigios.",
@@ -110,33 +128,32 @@ export const siteContent = {
           "Asimismo, asesora en el diseño e implementación de programas de protección de datos personales y seguridad de la información, orientados a integrar las exigencias normativas en los procesos internos de las empresas.",
         ],
       },
-      {
-        number: "02",
-        name: "Catalina María de la Torre",
-        role: "Abogada y Socióloga | Socia y Fundadora de EUCATEN",
-        image: "/team/catalina-de-la-torre.png",
-        imageWidth: 1149,
-        imageHeight: 839,
-        paragraphs: [
-          "Especialista en compliance y acompañamiento jurídico para la radicación y expansión de empresas en nuevos mercados. Es docente de grado de la carrera de Abogacía en la Universidad Nacional de Tucumán y de posgrado en Prevención de Lavado de Activos en la Universidad Católica Argentina.",
-          "Cuenta con sólida experiencia en el diseño e implementación de sistemas de cumplimiento en Argentina y otras jurisdicciones de Latinoamérica. Ha desarrollado y liderado procesos de adecuación regulatoria, adaptación contractual a marcos locales, evaluación de riesgos, debida diligencia y monitoreo transaccional, junto con la elaboración de programas, políticas y procedimientos en prevención de lavado, integridad y transparencia.",
-        ],
-      },
     ],
+  },
+  updates: {
+    label: "Actualidad",
+    title: "Notas y novedades",
+    body:
+      "Notas, novedades regulatorias e información de interés para empresas y organizaciones.",
+    cta: "Ver notas",
+    emptyTitle: "Próximamente, nuevas publicaciones.",
+    emptyBody:
+      "Este espacio está preparado para incorporar notas y contenidos de EUCATEN a medida que se publiquen.",
   },
   contact: {
     label: "Contacto",
-    title: "Conversemos sobre lo que necesita tu empresa.",
-    lead: "Contanos en qué etapa estás y qué tipo de acompañamiento buscás.",
-    callLabel: "Llamar",
+    title: "Conversemos.",
+    lead:
+      "Cuéntenos en qué etapa está y qué tipo de acompañamiento necesita. Estamos para usted.",
   },
   footer: {
     navigation: [
-      { label: "Inicio", href: "#inicio" },
-      { label: "Servicios", href: "#servicios" },
-      { label: "Acompañamiento", href: "#acompanamiento" },
-      { label: "Nosotras", href: "#nosotras" },
-      { label: "Contacto", href: "#contacto" },
+      { label: "Inicio", href: "/#inicio" },
+      { label: "Servicios", href: "/#servicios" },
+      { label: "Acompañamiento", href: "/#acompanamiento" },
+      { label: "Nosotras", href: "/#nosotras" },
+      { label: "Actualidad", href: "/actualidad" },
+      { label: "Contacto", href: "/#contacto" },
     ],
   },
 } as const;
