@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { siteContent } from "@/content/site";
 
 const whatsappNumber = siteContent.brand.phone.replace(/\D/g, "");
@@ -25,36 +25,219 @@ function ArrowUpRight() {
   );
 }
 
+function shouldReduceMotion() {
+  const forceMotion = new URLSearchParams(window.location.search).get("motion") === "1";
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches && !forceMotion;
+}
+
+type SignatureTone = "gold" | "navy" | "silver";
+
+type SignatureConfig = {
+  bias: number;
+  amplitude: number;
+  phase: number;
+};
+
+/*
+ * V11.11
+ * Volvemos al movimiento REAL de V11.7/V11.8: en cada frame se modifica
+ * el atributo `d` de los SVG paths con requestAnimationFrame.
+ *
+ * La diferencia es la geometría: ya no usamos perfiles irregulares ni
+ * puntos que puedan formar picos. Las tres hebras salen de ondas largas y
+ * continuas, separadas 120°, para que se trencen como la marca sin hacer
+ * nudos extraños. El movimiento recorre verticalmente la curva, por eso se
+ * ve claramente aunque el trazo mantenga siempre una forma limpia.
+ */
+const signatureConfig: Record<SignatureTone, SignatureConfig> = {
+  gold: { bias: -3.5, amplitude: 12.4, phase: 0 },
+  navy: { bias: 0, amplitude: 11.5, phase: (Math.PI * 2) / 3 },
+  silver: { bias: 3.5, amplitude: 10.8, phase: (Math.PI * 4) / 3 },
+};
+
+const signatureY = [
+  -80, -20, 40, 100, 160, 220, 280, 340, 400, 460,
+  520, 580, 640, 700, 760, 820, 880, 940, 1000, 1080,
+] as const;
+
+function rounded(value: number) {
+  return Number(value.toFixed(2));
+}
+
+function smoothSignaturePath(points: readonly (readonly [number, number])[]) {
+  if (points.length < 2) return "";
+
+  const [startX, startY] = points[0];
+  const segments = [`M${rounded(startX)} ${rounded(startY)}`];
+
+  for (let index = 0; index < points.length - 1; index += 1) {
+    const p0 = points[Math.max(0, index - 1)];
+    const p1 = points[index];
+    const p2 = points[index + 1];
+    const p3 = points[Math.min(points.length - 1, index + 2)];
+
+    const cp1x = p1[0] + (p2[0] - p0[0]) / 6;
+    const cp1y = p1[1] + (p2[1] - p0[1]) / 6;
+    const cp2x = p2[0] - (p3[0] - p1[0]) / 6;
+    const cp2y = p2[1] - (p3[1] - p1[1]) / 6;
+
+    segments.push(
+      `C${rounded(cp1x)} ${rounded(cp1y)} ${rounded(cp2x)} ${rounded(cp2y)} ${rounded(p2[0])} ${rounded(p2[1])}`,
+    );
+  }
+
+  return segments.join(" ");
+}
+
+function verticalSignaturePath(tone: SignatureTone, time: number) {
+  const { bias, amplitude, phase } = signatureConfig[tone];
+  const travel = time * 0.62;
+  const minY = signatureY[0];
+  const spanY = signatureY[signatureY.length - 1] - minY;
+
+  const points = signatureY.map((y) => {
+    const u = (y - minY) / spanY;
+
+    // Onda principal: grande, lenta y continua. Es la que genera el
+    // entrelazado visible y hace que los cruces recorran la sección.
+    const primary = amplitude * Math.sin(
+      u * Math.PI * 2 * 1.08 - travel + phase,
+    );
+
+    // Dos respiraciones de baja amplitud rompen la perfección matemática
+    // sin introducir quiebres ni nudos.
+    const secondary = 1.85 * Math.sin(
+      u * Math.PI * 2 * 0.46 + travel * 0.36 + phase * 0.34,
+    );
+    const sharedSway = 1.45 * Math.sin(
+      travel * 0.48 + u * Math.PI * 0.72,
+    );
+
+    const x = 31 + bias + primary + secondary + sharedSway;
+    return [x, y] as const;
+  });
+
+  return smoothSignaturePath(points);
+}
+
+function journeyPath(baseY: number, phase: number, time: number) {
+  const speed = 0.68;
+  const a = Math.sin(time * speed + phase);
+  const b = Math.sin(time * speed * 0.88 + phase + 1.55);
+  const c = Math.sin(time * speed * 1.04 + phase + 3.1);
+  const x1 = 285 + Math.sin(time * speed * 0.72 + phase) * 24;
+  const x2 = 580 + Math.sin(time * speed * 0.81 + phase + 1.2) * 28;
+  const x3 = 895 + Math.sin(time * speed * 0.76 + phase + 2.5) * 24;
+  const y1 = baseY - 98 + a * 28;
+  const y2 = baseY + 30 + b * 24;
+  const y3 = baseY - 118 + c * 30;
+
+  return [
+    `M0 ${baseY}`,
+    `C115 ${baseY} 150 ${y1} ${x1} ${y1}`,
+    `C420 ${y1} 438 ${y2} ${x2} ${y2}`,
+    `C720 ${y2} 754 ${y3} ${x3} ${y3}`,
+    `C1030 ${y3} 1080 ${baseY - 22} 1200 ${baseY - 22}`,
+  ].join(" ");
+}
+
 function SectionSignature({ side = "left" }: { side?: "left" | "right" }) {
-  const paths = [
-    "M12 -60 C12 85 44 120 42 252 C40 365 14 410 18 535 C22 658 48 705 44 820 C41 925 18 972 18 1060",
-    "M31 -60 C31 90 17 145 20 268 C23 382 46 430 43 548 C40 668 16 712 20 830 C23 932 34 978 34 1060",
-    "M50 -60 C50 95 29 160 32 286 C35 394 18 446 21 560 C24 680 43 728 40 844 C37 940 49 990 48 1060",
-  ] as const;
+  const goldRef = useRef<SVGPathElement>(null);
+  const navyRef = useRef<SVGPathElement>(null);
+  const silverRef = useRef<SVGPathElement>(null);
+  const goldPulseRef = useRef<SVGPathElement>(null);
+  const navyPulseRef = useRef<SVGPathElement>(null);
+  const silverPulseRef = useRef<SVGPathElement>(null);
+
+  const goldInitial = verticalSignaturePath("gold", 0);
+  const navyInitial = verticalSignaturePath("navy", 0);
+  const silverInitial = verticalSignaturePath("silver", 0);
+
+  useEffect(() => {
+    if (shouldReduceMotion()) return;
+
+    let rafId = 0;
+    const startedAt = performance.now();
+
+    const frame = (now: number) => {
+      const time = (now - startedAt) / 1000;
+      const gold = verticalSignaturePath("gold", time);
+      const navy = verticalSignaturePath("navy", time);
+      const silver = verticalSignaturePath("silver", time);
+
+      goldRef.current?.setAttribute("d", gold);
+      navyRef.current?.setAttribute("d", navy);
+      silverRef.current?.setAttribute("d", silver);
+      goldPulseRef.current?.setAttribute("d", gold);
+      navyPulseRef.current?.setAttribute("d", navy);
+      silverPulseRef.current?.setAttribute("d", silver);
+
+      rafId = window.requestAnimationFrame(frame);
+    };
+
+    rafId = window.requestAnimationFrame(frame);
+    return () => window.cancelAnimationFrame(rafId);
+  }, []);
 
   return (
     <div className={`section-signature is-${side}`} aria-hidden="true">
       <svg viewBox="0 0 64 1000" preserveAspectRatio="none" className="section-signature-svg">
-        <path className="signature-line signature-gold" d={paths[0]} />
-        <path className="signature-line signature-navy" d={paths[1]} />
-        <path className="signature-line signature-silver" d={paths[2]} />
-        <path pathLength="1" className="signature-pulse pulse-gold" d={paths[0]} />
-        <path pathLength="1" className="signature-pulse pulse-navy" d={paths[1]} />
-        <path pathLength="1" className="signature-pulse pulse-silver" d={paths[2]} />
+        <path ref={goldRef} className="signature-line signature-gold" d={goldInitial} />
+        <path ref={navyRef} className="signature-line signature-navy" d={navyInitial} />
+        <path ref={silverRef} className="signature-line signature-silver" d={silverInitial} />
+
+        <path ref={goldPulseRef} className="signature-pulse pulse-gold" d={goldInitial} pathLength={1} />
+        <path ref={navyPulseRef} className="signature-pulse pulse-navy" d={navyInitial} pathLength={1} />
+        <path ref={silverPulseRef} className="signature-pulse pulse-silver" d={silverInitial} pathLength={1} />
       </svg>
     </div>
   );
 }
 
 function JourneyLines() {
+  const goldRef = useRef<SVGPathElement>(null);
+  const navyRef = useRef<SVGPathElement>(null);
+  const silverRef = useRef<SVGPathElement>(null);
+  const pulseRef = useRef<SVGPathElement>(null);
+
+  const goldInitial = journeyPath(190, 0, 0);
+  const navyInitial = journeyPath(204, 2.1, 0);
+  const silverInitial = journeyPath(218, 4.2, 0);
+
+  useEffect(() => {
+    if (shouldReduceMotion()) return;
+
+    let rafId = 0;
+    const startedAt = performance.now();
+
+    const frame = (now: number) => {
+      const time = (now - startedAt) / 1000;
+      const gold = journeyPath(190, 0, time);
+      const navy = journeyPath(204, 2.1, time);
+      const silver = journeyPath(218, 4.2, time);
+
+      goldRef.current?.setAttribute("d", gold);
+      navyRef.current?.setAttribute("d", navy);
+      silverRef.current?.setAttribute("d", silver);
+      pulseRef.current?.setAttribute("d", gold);
+
+      rafId = window.requestAnimationFrame(frame);
+    };
+
+    rafId = window.requestAnimationFrame(frame);
+    return () => window.cancelAnimationFrame(rafId);
+  }, []);
+
   return (
     <svg className="journey-lines" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true">
-      <path pathLength="1" className="journey-gold" d="M0 190 C115 190 150 92 285 92 C420 92 435 220 580 220 C720 220 748 72 895 72 C1030 72 1075 168 1200 168" />
-      <path pathLength="1" className="journey-navy" d="M0 204 C120 204 164 108 296 108 C430 108 447 236 592 236 C735 236 760 88 906 88 C1042 88 1088 184 1200 184" />
-      <path pathLength="1" className="journey-silver" d="M0 218 C126 218 178 124 307 124 C440 124 459 252 604 252 C748 252 774 104 918 104 C1054 104 1100 200 1200 200" />
+      <path ref={goldRef} className="journey-gold" d={goldInitial} pathLength={1} />
+      <path ref={navyRef} className="journey-navy" d={navyInitial} pathLength={1} />
+      <path ref={silverRef} className="journey-silver" d={silverInitial} pathLength={1} />
+      <path ref={pulseRef} className="journey-pulse" d={goldInitial} pathLength={1} />
     </svg>
   );
 }
+
 
 export function EucatenHome() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -130,9 +313,9 @@ export function EucatenHome() {
     const finishSequence = () => {
       setHeroTypingDone(true);
       setHeroLogoReady(true);
-      timers.push(window.setTimeout(() => setHeroStage(1), 120));
-      timers.push(window.setTimeout(() => setHeroStage(2), 420));
-      timers.push(window.setTimeout(() => setHeroStage(3), 700));
+      timers.push(window.setTimeout(() => setHeroStage(1), 220));
+      timers.push(window.setTimeout(() => setHeroStage(2), 620));
+      timers.push(window.setTimeout(() => setHeroStage(3), 980));
     };
 
     timers.push(
@@ -146,8 +329,8 @@ export function EucatenHome() {
             typingInterval = 0;
             finishSequence();
           }
-        }, 42);
-      }, 180),
+        }, 88);
+      }, 320),
     );
 
     return () => {
@@ -365,12 +548,14 @@ export function EucatenHome() {
 
       <section className="contact-section connected-section reveal-section" id="contacto" data-reveal>
         <SectionSignature side="left" />
+        <div className="shell contact-topline" aria-hidden="true">
+          <span>{siteContent.contact.label}</span>
+        </div>
         <div className="shell contact-shell">
           <div className="contact-brand-visual" aria-hidden="true">
             <Image src="/brand/eucaten-isotipo.png" alt="" width={489} height={475} className="contact-isotipo hero-isotipo-motion" sizes="(max-width: 760px) 42vw, 16vw" />
           </div>
           <div className="contact-copy">
-            <p className="contact-kicker">{siteContent.contact.label}</p>
             <h2>{siteContent.contact.title}</h2>
             <p>{siteContent.contact.lead}</p>
           </div>

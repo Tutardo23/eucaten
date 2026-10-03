@@ -1677,12 +1677,12 @@ section { scroll-margin-top: 84px; }
   inset: 34px 0 auto;
   height: 285px;
 }
-.journey-lines path {
+.journey-lines path:not(.journey-pulse) {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
 }
-.accompaniment-section.is-visible .journey-lines path {
-  animation: journeyDraw 2.6s cubic-bezier(.2,.65,.2,1) forwards;
+.accompaniment-section.is-visible .journey-lines path:not(.journey-pulse) {
+  animation: journeyDraw 2.9s cubic-bezier(.2,.65,.2,1) forwards;
 }
 .accompaniment-section.is-visible .journey-lines .journey-navy { animation-delay: .12s; }
 .accompaniment-section.is-visible .journey-lines .journey-silver { animation-delay: .24s; }
@@ -2261,3 +2261,255 @@ html[data-eucaten-motion-forced="true"] .hero-logo-once.is-visible {
 .motion-test-panel > span { color: #b18a4b; font-size: 14px; letter-spacing: .18em; }
 @keyframes motionTestTyping { from { width: 0; } to { width: 26ch; } }
 @keyframes motionTestCaret { 50% { border-color: transparent; } }
+
+
+/* =========================================================
+   V11.5 — refinamiento solicitado por Cata
+   Sin cambios de escala general ni de estructura base.
+   ========================================================= */
+
+/* Hero más pausado + isotipo que cae y rebota una sola vez. */
+.hero-logo-once {
+  opacity: 0;
+  transform: translateY(-120px) scale(.94);
+}
+.hero-logo-once.is-visible {
+  animation: eucatenLogoDropOnce 1650ms cubic-bezier(.22,.82,.2,1) forwards !important;
+}
+@keyframes eucatenLogoDropOnce {
+  0%   { opacity: 0; transform: translateY(-120px) scale(.94); }
+  42%  { opacity: 1; transform: translateY(18px) scale(1.015); }
+  58%  { transform: translateY(-11px) scale(.995); }
+  72%  { transform: translateY(7px) scale(1.006); }
+  84%  { transform: translateY(-3px) scale(.998); }
+  94%  { transform: translateY(1px) scale(1); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Firma lateral: recorrido fijo; solo se mueve luz sobre el trazo. */
+.signature-line {
+  animation: signatureBreathe 5.8s ease-in-out infinite;
+}
+.signature-navy { animation-delay: -1.8s; }
+.signature-silver { animation-delay: -3.4s; }
+.signature-pulse {
+  stroke-width: 2.8px;
+  stroke-dasharray: .095 .905;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  filter: drop-shadow(0 0 5px currentColor);
+  animation: signatureFlowV115 7.4s linear infinite;
+}
+.pulse-gold { animation-delay: 0s; }
+.pulse-navy { animation-delay: -2.45s; }
+.pulse-silver { animation-delay: -4.9s; }
+@keyframes signatureBreathe {
+  0%,100% { filter: brightness(1); }
+  50% { filter: brightness(1.18); }
+}
+@keyframes signatureFlowV115 {
+  0% { stroke-dashoffset: 1; opacity: 0; }
+  7% { opacity: .95; }
+  42% { opacity: .72; }
+  72%,100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+/* Recorrido 01–04: se dibuja, los puntos entran en secuencia y queda un pulso. */
+.journey-pulse {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+  stroke: #d4ae68;
+  stroke-width: 3.2px;
+  stroke-linecap: round;
+  stroke-dasharray: .055 .945;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  filter: drop-shadow(0 0 5px rgba(177,138,75,.72));
+}
+.accompaniment-section.is-visible .journey-pulse {
+  animation: journeyPulseV115 7.8s linear 3.15s infinite;
+}
+@keyframes journeyPulseV115 {
+  0% { stroke-dashoffset: 1; opacity: 0; }
+  8% { opacity: .95; }
+  68% { opacity: .78; }
+  82%,100% { stroke-dashoffset: 0; opacity: 0; }
+}
+.accompaniment-point {
+  opacity: 0;
+  transform: translateY(18px);
+}
+.accompaniment-section.is-visible .accompaniment-point {
+  animation: accompanimentPointIn 720ms cubic-bezier(.2,.72,.2,1) forwards;
+}
+.accompaniment-section.is-visible .accompaniment-point.point-1 { animation-delay: .48s; }
+.accompaniment-section.is-visible .accompaniment-point.point-2 { animation-delay: .92s; }
+.accompaniment-section.is-visible .accompaniment-point.point-3 { animation-delay: 1.36s; }
+.accompaniment-section.is-visible .accompaniment-point.point-4 { animation-delay: 1.80s; }
+@keyframes accompanimentPointIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.accompaniment-section.is-visible .accompaniment-number {
+  animation: accompanimentNumberPulse 720ms ease-out both;
+}
+.accompaniment-section.is-visible .point-1 .accompaniment-number { animation-delay: .54s; }
+.accompaniment-section.is-visible .point-2 .accompaniment-number { animation-delay: .98s; }
+.accompaniment-section.is-visible .point-3 .accompaniment-number { animation-delay: 1.42s; }
+.accompaniment-section.is-visible .point-4 .accompaniment-number { animation-delay: 1.86s; }
+@keyframes accompanimentNumberPulse {
+  0% { transform: scale(.92); }
+  58% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* Nombres completos en un solo renglón. */
+.team-copy-panel h3 {
+  max-width: none;
+  white-space: nowrap;
+  font-size: clamp(26px, 2.9vw, 48px);
+  letter-spacing: -.035em;
+}
+
+/* Contacto a la derecha, por encima de la línea. */
+.contact-section {
+  padding-top: clamp(58px, 6vw, 82px);
+}
+.contact-topline {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding-bottom: 14px;
+  margin-bottom: clamp(34px, 4vw, 54px);
+  border-bottom: 1px solid rgba(16,30,49,.18);
+}
+.contact-topline span {
+  color: var(--gold-dark);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 760px) {
+  .signature-pulse { display: block; }
+  .team-copy-panel h3 {
+    font-size: clamp(25px, 7vw, 34px);
+    letter-spacing: -.04em;
+  }
+  .contact-topline { margin-bottom: 30px; }
+}
+@media (max-width: 390px) {
+  .team-copy-panel h3 { font-size: clamp(23px, 6.5vw, 28px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-eucaten-motion-forced="true"]) .signature-line,
+  html:not([data-eucaten-motion-forced="true"]) .signature-pulse,
+  html:not([data-eucaten-motion-forced="true"]) .journey-pulse,
+  html:not([data-eucaten-motion-forced="true"]) .accompaniment-point,
+  html:not([data-eucaten-motion-forced="true"]) .accompaniment-number,
+  html:not([data-eucaten-motion-forced="true"]) .hero-logo-once.is-visible {
+    animation: none !important;
+    transition: none !important;
+  }
+  html:not([data-eucaten-motion-forced="true"]) .accompaniment-point {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  html:not([data-eucaten-motion-forced="true"]) .hero-logo-once {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* =========================================================
+   V11.6 — movimiento geométrico REAL de líneas y recorrido
+   Los extremos permanecen fijos; solo respiran las curvas internas.
+   ========================================================= */
+
+/* El trazo base ya se mueve con <animate d>. El pulso sigue el mismo path. */
+.section-signature-svg,
+.journey-lines {
+  overflow: visible;
+}
+
+/* La geometría ya aporta vida: bajamos el "breathe" de brillo para que no compita. */
+.signature-line {
+  animation: none !important;
+}
+
+/* Los cuatro puntos quedan vivos después de su entrada, con movimiento mínimo. */
+.accompaniment-section.is-visible .accompaniment-point.point-1 {
+  animation:
+    accompanimentPointIn 720ms cubic-bezier(.2,.72,.2,1) .48s forwards,
+    accompanimentPointFloatA 7.6s ease-in-out 2.2s infinite;
+}
+.accompaniment-section.is-visible .accompaniment-point.point-2 {
+  animation:
+    accompanimentPointIn 720ms cubic-bezier(.2,.72,.2,1) .92s forwards,
+    accompanimentPointFloatB 8.2s ease-in-out 2.7s infinite;
+}
+.accompaniment-section.is-visible .accompaniment-point.point-3 {
+  animation:
+    accompanimentPointIn 720ms cubic-bezier(.2,.72,.2,1) 1.36s forwards,
+    accompanimentPointFloatA 7.9s ease-in-out 3.2s infinite reverse;
+}
+.accompaniment-section.is-visible .accompaniment-point.point-4 {
+  animation:
+    accompanimentPointIn 720ms cubic-bezier(.2,.72,.2,1) 1.8s forwards,
+    accompanimentPointFloatB 8.5s ease-in-out 3.7s infinite reverse;
+}
+
+@keyframes accompanimentPointFloatA {
+  0%, 100% { transform: translate3d(0,0,0); }
+  50% { transform: translate3d(0,-7px,0); }
+}
+@keyframes accompanimentPointFloatB {
+  0%, 100% { transform: translate3d(0,0,0); }
+  50% { transform: translate3d(0,6px,0); }
+}
+
+/* En pantallas chicas el movimiento de las cards es todavía más corto. */
+@media (max-width: 760px) {
+  @keyframes accompanimentPointFloatA {
+    0%, 100% { transform: translate3d(0,0,0); }
+    50% { transform: translate3d(0,-4px,0); }
+  }
+  @keyframes accompanimentPointFloatB {
+    0%, 100% { transform: translate3d(0,0,0); }
+    50% { transform: translate3d(0,4px,0); }
+  }
+}
+
+/* Reduced motion: las animaciones CSS se detienen; el path queda en su forma base. */
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-eucaten-motion-forced="true"]) .accompaniment-section.is-visible .accompaniment-point {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* V11.7 — geometría SVG animada por requestAnimationFrame.
+   El movimiento es del path real; no depende de CSS/SMIL. */
+.section-signature-svg .signature-line,
+.section-signature-svg .signature-pulse,
+.journey-lines .journey-gold,
+.journey-lines .journey-navy,
+.journey-lines .journey-silver,
+.journey-lines .journey-pulse {
+  transition: none !important;
+}
+
+/* Un poco más de presencia para que la deformación sea perceptible sin engrosar demasiado. */
+.signature-line { stroke-width: 1.35px; }
+@media (max-width: 760px) {
+  .signature-line { stroke-width: 1.2px; }
+}
+
+/* V11.11 — la firma lateral vuelve a morph real por requestAnimationFrame.
+   No agregar transforms CSS a .signature-ribbon/.signature-strand: el path `d`
+   se actualiza directamente en eucaten-home.tsx, como en V11.7/V11.8. */

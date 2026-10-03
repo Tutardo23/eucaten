@@ -134,7 +134,7 @@ export const siteContent = {
     label: "Actualidad",
     title: "Notas y novedades",
     body:
-      "Notas, novedades regulatorias e información de interés para empresas y organizaciones.",
+      "Aquí encontrará contenidos de interés que le permitirán mantenerse actualizado en cuestiones de compliance.",
     cta: "Ver notas",
     emptyTitle: "Próximamente, nuevas publicaciones.",
     emptyBody:
