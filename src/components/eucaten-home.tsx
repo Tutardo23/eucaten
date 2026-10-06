@@ -532,16 +532,14 @@ export function EucatenHome() {
       <section className="updates-section connected-section reveal-section" id="actualidad-home" data-reveal>
         <SectionSignature side="right" />
         <div className="shell updates-shell">
-          <div className="updates-copy">
+          <a
+            className="updates-copy updates-copy-link"
+            href="/actualidad"
+            aria-label="Ir a Actualidad de EUCATEN"
+          >
             <p className="section-kicker">{siteContent.updates.label}</p>
             <h2>{siteContent.updates.title}</h2>
             <p>{siteContent.updates.body}</p>
-          </div>
-          <a className="updates-card" href="/actualidad">
-            <span className="updates-card-index">EUCATEN / ACTUALIDAD</span>
-            <strong>{siteContent.updates.emptyTitle}</strong>
-            <span>{siteContent.updates.emptyBody}</span>
-            <span className="updates-card-cta">{siteContent.updates.cta} <ArrowUpRight /></span>
           </a>
         </div>
       </section>

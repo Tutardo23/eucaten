@@ -14,7 +14,7 @@ export const siteContent = {
   },
   servicesIntro: {
     label: "Servicios",
-    title: "Cómo podemos acompañar a su empresa",
+    title: "Cómo podemos acompañar en su empresa",
     body:
       "Estructuramos, gestionamos y acompañamos las necesidades legales, regulatorias y de cumplimiento de cada organización.",
   },
@@ -131,10 +131,10 @@ export const siteContent = {
     ],
   },
   updates: {
-    label: "Actualidad",
+    label: "EUCATEN / ACTUALIDAD",
     title: "Notas y novedades",
     body:
-      "Aquí encontrará contenidos de interés que le permitirán mantenerse actualizado en cuestiones de compliance.",
+      "Aquí encontrará contenidos de interés que le permitan mantenerse actualizado en cuestiones de compliance.",
     cta: "Ver notas",
     emptyTitle: "Próximamente, nuevas publicaciones.",
     emptyBody:
