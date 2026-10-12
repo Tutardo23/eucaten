@@ -1,0 +1,361 @@
+.admin-page {
+  min-height: 100vh;
+  padding: 48px clamp(22px, 5vw, 72px) 80px;
+  background: #f7f6f2;
+  color: #101e31;
+  font-family: var(--font-body, Inter), Arial, sans-serif;
+}
+
+.admin-page * { box-sizing: border-box; }
+.admin-page a { color: inherit; }
+
+.admin-header {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
+  padding-bottom: 34px;
+  border-bottom: 1px solid rgba(16, 30, 49, .14);
+}
+
+.admin-eyebrow {
+  margin: 0 0 10px;
+  color: #8f6d38;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.admin-header h1,
+.admin-state-card h1 {
+  margin: 0;
+  font-family: var(--font-heading, Georgia), Georgia, serif;
+  font-size: clamp(42px, 5vw, 68px);
+  line-height: .95;
+  letter-spacing: -.04em;
+}
+
+.admin-header-copy {
+  max-width: 620px;
+  margin: 16px 0 0;
+  color: #536173;
+  line-height: 1.6;
+}
+
+.admin-user-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #536173;
+  font-size: 13px;
+}
+
+.admin-summary {
+  width: min(1180px, 100%);
+  margin: 28px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.admin-summary a {
+  min-height: 94px;
+  padding: 20px 22px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  text-decoration: none;
+  border: 1px solid rgba(16, 30, 49, .12);
+  background: rgba(255, 255, 255, .65);
+  transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
+}
+
+.admin-summary a:hover,
+.admin-summary a.is-active {
+  border-color: rgba(177, 138, 75, .7);
+  background: #fff;
+  transform: translateY(-2px);
+}
+
+.admin-summary span { font-size: 14px; font-weight: 600; }
+.admin-summary strong {
+  font-family: var(--font-heading, Georgia), Georgia, serif;
+  font-size: 42px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.admin-notice {
+  width: min(1180px, 100%);
+  margin: 20px auto 0;
+  padding: 14px 16px;
+  border: 1px solid rgba(26, 120, 84, .26);
+  background: rgba(26, 120, 84, .07);
+  color: #176847;
+  font-size: 14px;
+}
+
+.admin-notice.is-error {
+  border-color: rgba(156, 49, 49, .28);
+  background: rgba(156, 49, 49, .07);
+  color: #8a2f2f;
+}
+
+.admin-create-panel,
+.admin-edit-panel {
+  width: min(1180px, 100%);
+  margin: 24px auto 0;
+  border: 1px solid rgba(16, 30, 49, .12);
+  background: #fff;
+}
+
+.admin-create-panel > summary,
+.admin-edit-panel > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 18px 22px;
+  font-weight: 700;
+}
+
+.admin-create-panel > summary::-webkit-details-marker,
+.admin-edit-panel > summary::-webkit-details-marker { display: none; }
+
+.admin-create-panel > p {
+  margin: -4px 22px 0;
+  color: #657182;
+  font-size: 14px;
+}
+
+.admin-form {
+  padding: 22px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  border-top: 1px solid rgba(16, 30, 49, .1);
+}
+
+.admin-field {
+  display: grid;
+  gap: 8px;
+}
+
+.admin-field-wide { grid-column: 1 / -1; }
+.admin-field label,
+.admin-fieldset legend { font-size: 12px; font-weight: 700; letter-spacing: .04em; }
+
+.admin-field input,
+.admin-field textarea,
+.admin-field select {
+  width: 100%;
+  border: 1px solid rgba(16, 30, 49, .18);
+  background: #fbfaf7;
+  color: #101e31;
+  padding: 12px 13px;
+  font: inherit;
+  border-radius: 0;
+}
+
+.admin-field input:focus,
+.admin-field textarea:focus,
+.admin-field select:focus {
+  outline: 2px solid rgba(177, 138, 75, .32);
+  border-color: #b18a4b;
+}
+
+.admin-fieldset { border: 0; padding: 0; margin: 0; }
+.admin-fieldset legend { margin-bottom: 10px; }
+
+.admin-category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.admin-checkbox {
+  display: flex !important;
+  grid-template-columns: none !important;
+  align-items: flex-start;
+  gap: 9px !important;
+  padding: 10px 11px;
+  border: 1px solid rgba(16, 30, 49, .1);
+  background: #fbfaf7;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  line-height: 1.35;
+}
+
+.admin-checkbox input { width: auto; margin-top: 2px; }
+.admin-form-actions { display: flex; justify-content: flex-end; }
+
+.admin-button {
+  min-height: 40px;
+  padding: 9px 14px;
+  border: 1px solid rgba(16, 30, 49, .2);
+  background: #fff;
+  color: #101e31;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.admin-button:hover { border-color: #8f6d38; }
+.admin-button.is-primary { background: #101e31; border-color: #101e31; color: #f7f6f2; }
+.admin-button.is-danger { color: #8a2f2f; border-color: rgba(138, 47, 47, .3); }
+.admin-button.is-neutral { color: #536173; }
+
+.admin-list-section {
+  width: min(1180px, 100%);
+  margin: 48px auto 0;
+}
+
+.admin-list-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+.admin-list-head h2 {
+  margin: 0;
+  font-family: var(--font-heading, Georgia), Georgia, serif;
+  font-size: 34px;
+}
+
+.admin-public-link { font-size: 13px; font-weight: 700; text-underline-offset: 4px; }
+.admin-news-list { display: grid; gap: 14px; }
+
+.admin-news-card {
+  padding: clamp(20px, 3vw, 30px);
+  border: 1px solid rgba(16, 30, 49, .12);
+  background: #fff;
+}
+
+.admin-news-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.admin-news-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  color: #7a8390;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.admin-news-card h2 {
+  margin: 10px 0 0;
+  max-width: 820px;
+  font-family: var(--font-heading, Georgia), Georgia, serif;
+  font-size: clamp(28px, 3vw, 38px);
+  line-height: 1;
+}
+
+.admin-news-summary {
+  max-width: 850px;
+  margin: 18px 0 0;
+  color: #536173;
+  line-height: 1.65;
+}
+
+.admin-status {
+  flex: 0 0 auto;
+  padding: 7px 9px;
+  border: 1px solid rgba(16, 30, 49, .14);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.admin-status.is-published { color: #176847; border-color: rgba(23, 104, 71, .28); }
+.admin-status.is-rejected { color: #8a2f2f; border-color: rgba(138, 47, 47, .28); }
+.admin-status.is-pending { color: #8f6d38; border-color: rgba(143, 109, 56, .32); }
+
+.admin-news-tags {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.admin-news-tags span {
+  padding: 6px 8px;
+  background: #f5f2eb;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.admin-news-actions {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(16, 30, 49, .1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.admin-source-link { font-size: 13px; font-weight: 700; text-underline-offset: 4px; }
+.admin-action-group { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+
+.admin-edit-panel {
+  width: 100%;
+  margin: 18px 0 0;
+  background: #fbfaf7;
+}
+
+.admin-empty {
+  padding: 42px 24px;
+  border: 1px dashed rgba(16, 30, 49, .22);
+  color: #657182;
+  text-align: center;
+}
+
+.admin-state-page {
+  display: grid;
+  place-items: center;
+  padding-top: 80px;
+}
+
+.admin-state-card {
+  width: min(720px, 100%);
+  padding: clamp(28px, 5vw, 54px);
+  border: 1px solid rgba(16, 30, 49, .14);
+  background: #fff;
+}
+
+.admin-state-card p:not(.admin-eyebrow) {
+  margin: 22px 0;
+  color: #536173;
+  line-height: 1.65;
+}
+
+.admin-state-card a { font-weight: 700; text-underline-offset: 4px; }
+
+@media (max-width: 760px) {
+  .admin-page { padding: 28px 18px 60px; }
+  .admin-header { flex-direction: column; }
+  .admin-user-area { width: 100%; justify-content: space-between; }
+  .admin-summary { grid-template-columns: 1fr; }
+  .admin-summary a { min-height: 76px; }
+  .admin-form { grid-template-columns: 1fr; padding: 18px; }
+  .admin-field-wide { grid-column: auto; }
+  .admin-category-grid { grid-template-columns: 1fr; }
+  .admin-news-head,
+  .admin-news-actions,
+  .admin-list-head { flex-direction: column; align-items: stretch; }
+  .admin-action-group { justify-content: flex-start; }
+  .admin-status { align-self: flex-start; }
+}

@@ -1,0 +1,339 @@
+.page {
+  min-height: 100svh;
+  background: #101e31;
+  color: #f7f6f2;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.header {
+  width: min(calc(100% - 48px), 1280px);
+  min-height: 86px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  border-bottom: 1px solid rgba(247, 246, 242, 0.13);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.brandSymbol {
+  width: 31px;
+  height: 31px;
+  object-fit: contain;
+}
+
+.brandWordmark {
+  width: 152px;
+  height: auto;
+}
+
+.backLink {
+  color: rgba(247, 246, 242, 0.72);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.backLink:hover {
+  color: #f7f6f2;
+}
+
+.content {
+  width: min(calc(100% - 48px), 1280px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(380px, 0.95fr);
+  align-items: stretch;
+  min-height: calc(100svh - 86px);
+}
+
+.intro {
+  position: relative;
+  padding: clamp(74px, 10vw, 150px) clamp(50px, 8vw, 118px) 72px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.intro::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(177, 138, 75, 0.58), transparent);
+}
+
+.eyebrow {
+  margin: 0 0 22px;
+  color: #b18a4b;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+}
+
+.intro h1,
+.configCard h1 {
+  margin: 0;
+  max-width: 8ch;
+  font-family: var(--font-heading, Georgia), Georgia, serif;
+  font-size: clamp(58px, 7.4vw, 104px);
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+}
+
+.lead {
+  max-width: 48ch;
+  margin: 34px 0 0;
+  color: rgba(247, 246, 242, 0.67);
+  font-size: 17px;
+  line-height: 1.72;
+}
+
+.securityNote {
+  margin-top: clamp(48px, 7vw, 92px);
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 18px;
+  max-width: 470px;
+  align-items: start;
+}
+
+.securityNote span {
+  color: #b18a4b;
+  font-family: var(--font-heading, Georgia), Georgia, serif;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.securityNote p {
+  margin: 0;
+  padding-top: 2px;
+  color: rgba(247, 246, 242, 0.58);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.formSide {
+  background: #f7f6f2;
+  color: #101e31;
+  margin: 44px 0 44px clamp(36px, 5vw, 80px);
+  padding: clamp(48px, 6vw, 78px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
+}
+
+.formIntro {
+  margin-bottom: 30px;
+}
+
+.formIntro p {
+  margin: 0 0 9px;
+  color: #8f6d38;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.formIntro h2 {
+  margin: 0;
+  font-family: var(--font-heading, Georgia), Georgia, serif;
+  font-size: clamp(36px, 4vw, 50px);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+.clerkFrame {
+  width: 100%;
+}
+
+.clerkFrame :global(.cl-rootBox),
+.clerkFrame :global(.cl-cardBox) {
+  width: 100%;
+  max-width: none;
+}
+
+.clerkFrame :global(.cl-card) {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.clerkFrame :global(.cl-header) {
+  display: none;
+}
+
+.clerkFrame :global(.cl-main) {
+  gap: 22px;
+}
+
+.clerkFrame :global(.cl-formFieldLabel) {
+  color: #101e31;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.clerkFrame :global(.cl-formFieldInput) {
+  min-height: 48px;
+  border: 1px solid rgba(16, 30, 49, 0.16);
+  border-radius: 2px;
+  background: #ffffff;
+  box-shadow: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.clerkFrame :global(.cl-formFieldInput:focus) {
+  border-color: #b18a4b;
+  box-shadow: 0 0 0 3px rgba(177, 138, 75, 0.12);
+}
+
+.clerkFrame :global(.cl-formButtonPrimary) {
+  min-height: 49px;
+  border-radius: 2px;
+  background: #101e31;
+  color: #f7f6f2;
+  box-shadow: none;
+  font-weight: 600;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.clerkFrame :global(.cl-formButtonPrimary:hover),
+.clerkFrame :global(.cl-formButtonPrimary:focus) {
+  background: #1b2e48;
+  transform: translateY(-1px);
+}
+
+.clerkFrame :global(.cl-footerAction) {
+  display: none;
+}
+
+.clerkFrame :global(.cl-footer) {
+  margin-top: 18px;
+}
+
+.clerkFrame :global(.cl-footerPages) {
+  color: #5f6874;
+}
+
+.helpText {
+  margin: 24px 0 0;
+  padding-top: 22px;
+  border-top: 1px solid rgba(16, 30, 49, 0.1);
+  color: #6d747d;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.configCard {
+  width: min(calc(100% - 48px), 680px);
+  margin: auto;
+  padding: 72px 0;
+}
+
+.configCard h1 {
+  max-width: 12ch;
+  font-size: clamp(48px, 7vw, 76px);
+}
+
+.configCard > p:not(.eyebrow) {
+  margin: 26px 0 0;
+  color: rgba(247, 246, 242, 0.65);
+}
+
+.configCard a {
+  display: inline-flex;
+  margin-top: 32px;
+  color: #f7f6f2;
+  text-decoration: none;
+  border-bottom: 1px solid #b18a4b;
+  padding-bottom: 4px;
+}
+
+.configSymbol {
+  width: 76px;
+  height: auto;
+  margin-bottom: 42px;
+}
+
+@media (max-width: 900px) {
+  .content {
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    width: min(calc(100% - 36px), 1280px);
+  }
+
+  .intro {
+    width: min(calc(100% - 40px), 680px);
+    margin: 0 auto;
+    padding: 72px 0 54px;
+  }
+
+  .intro::after {
+    display: none;
+  }
+
+  .intro h1 {
+    max-width: 9ch;
+    font-size: clamp(54px, 15vw, 82px);
+  }
+
+  .securityNote {
+    margin-top: 44px;
+  }
+
+  .formSide {
+    margin: 0;
+    padding: 54px max(20px, calc((100vw - 640px) / 2));
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .header {
+    min-height: 74px;
+  }
+
+  .brandWordmark {
+    width: 122px;
+  }
+
+  .brandSymbol {
+    width: 27px;
+    height: 27px;
+  }
+
+  .backLink {
+    font-size: 12px;
+  }
+
+  .intro {
+    padding-top: 56px;
+  }
+
+  .lead {
+    font-size: 16px;
+  }
+
+  .formSide {
+    padding: 46px 20px 54px;
+  }
+}

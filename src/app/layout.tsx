@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ClerkProvider } from "@clerk/nextjs";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import "lenis/dist/lenis.css";
@@ -39,10 +40,26 @@ export const metadata: Metadata = {
   },
 };
 
+function isClerkConfigured() {
+  return Boolean(
+    process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY?.trim() &&
+      process.env.CLERK_SECRET_KEY?.trim(),
+  );
+}
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const content = (
+    <>
+      <SmoothScroll />
+      {children}
+    </>
+  );
+
   return (
     <html lang="es">
-      <body className={`${heading.variable} ${body.variable}`}><SmoothScroll />{children}</body>
+      <body className={`${heading.variable} ${body.variable}`}>
+        {isClerkConfigured() ? <ClerkProvider>{content}</ClerkProvider> : content}
+      </body>
     </html>
   );
 }

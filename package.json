@@ -11,9 +11,12 @@
     "prebuild": "node scripts/clean-legacy.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "actualidad:db": "node scripts/actualidad-db.mjs"
   },
   "dependencies": {
+    "@clerk/nextjs": "^7.9.14",
+    "@neondatabase/serverless": "^1.2.0",
     "@react-three/fiber": "^9.8.1",
     "atropos": "2.0.2",
     "embla-carousel-react": "8.6.0",
