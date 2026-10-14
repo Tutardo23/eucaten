@@ -1,0 +1,250 @@
+.launcher {
+  width: min(100%, 470px);
+  margin-top: 26px;
+  padding: 14px 0 0;
+  border: 0;
+  border-top: 1px solid rgba(247, 246, 242, .15);
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: #f7f6f2;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+}
+
+.launcherLine {
+  width: 24px;
+  height: 1px;
+  background: #b18a4b;
+  transition: width 180ms ease;
+}
+
+.launcherIcon {
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(247, 246, 242, .26);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  padding-left: 2px;
+  color: #dfc88f;
+  font-size: 8px;
+  transition:
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.launcherCopy {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.launcherCopy small {
+  color: rgba(247, 246, 242, .48);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .11em;
+}
+
+.launcherCopy strong {
+  color: rgba(247, 246, 242, .91);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.launcherTime {
+  color: rgba(247, 246, 242, .4);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .06em;
+}
+
+.launcher:hover .launcherLine {
+  width: 36px;
+}
+
+.launcher:hover .launcherIcon {
+  border-color: rgba(223, 200, 143, .72);
+  background: rgba(177, 138, 75, .08);
+}
+
+.launcher:focus-visible {
+  outline: 2px solid rgba(223, 200, 143, .72);
+  outline-offset: 7px;
+}
+
+.backdrop {
+  position: fixed;
+  z-index: 500;
+  inset: 0;
+  padding: 24px;
+  display: grid;
+  place-items: center;
+  background: rgba(4, 12, 20, .82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: backdropIn 180ms ease-out both;
+}
+
+.dialog {
+  width: min(820px, 100%);
+  max-height: calc(100vh - 48px);
+  overflow: auto;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid rgba(177, 138, 75, .3);
+  background: #101e31;
+  color: #f7f6f2;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, .42);
+  animation: dialogIn 220ms ease-out both;
+}
+
+.header {
+  margin-bottom: 18px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.header p {
+  margin: 0 0 6px;
+  color: #d5b271;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .13em;
+}
+
+.header h2 {
+  margin: 0;
+  color: #f7f6f2;
+  font-family: var(--font-heading, Georgia), Georgia, serif;
+  font-size: clamp(27px, 3.4vw, 38px);
+  font-weight: 500;
+  line-height: .98;
+  letter-spacing: -.025em;
+}
+
+.close {
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(247, 246, 242, .16);
+  display: grid;
+  place-items: center;
+  background: transparent;
+  color: rgba(247, 246, 242, .75);
+  cursor: pointer;
+  font: inherit;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.close:hover {
+  border-color: rgba(213, 178, 113, .62);
+  color: #fff;
+}
+
+.videoFrame {
+  width: min(100%, 760px);
+  margin: 0 auto;
+  overflow: hidden;
+  aspect-ratio: 848 / 478;
+  border: 1px solid rgba(247, 246, 242, .12);
+  background: #0c2d47;
+}
+
+.video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #0c2d47;
+}
+
+.footer {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  color: rgba(247, 246, 242, .38);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+@keyframes backdropIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes dialogIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 620px) {
+  .launcher {
+    width: 100%;
+    margin-top: 22px;
+  }
+
+  .launcherLine {
+    display: none;
+  }
+
+  .launcher {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .backdrop {
+    padding: 10px;
+    align-items: center;
+  }
+
+  .dialog {
+    width: 100%;
+    max-height: calc(100vh - 20px);
+    padding: 15px;
+  }
+
+  .header {
+    margin-bottom: 14px;
+  }
+
+  .header h2 {
+    font-size: 27px;
+  }
+
+  .close {
+    width: 34px;
+    height: 34px;
+  }
+
+  .footer {
+    font-size: 7px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .launcherLine,
+  .launcherIcon {
+    transition: none;
+  }
+
+  .backdrop,
+  .dialog {
+    animation: none;
+  }
+}

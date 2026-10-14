@@ -5,7 +5,7 @@
   "scripts": {
     "clean:legacy": "node scripts/clean-legacy.mjs",
     "predev": "node scripts/clean-legacy.mjs",
-    "dev": "next dev",
+    "dev": "next dev --webpack",
     "pretypecheck": "node scripts/clean-legacy.mjs",
     "typecheck": "tsc --noEmit",
     "prebuild": "node scripts/clean-legacy.mjs",

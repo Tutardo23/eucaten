@@ -31,8 +31,6 @@ function parseAllowedValues(value: string | undefined) {
 }
 
 function getAllowedAdminUserIds() {
-  // Los IDs de Clerk son case-sensitive en la práctica, pero los normalizamos
-  // igual que las variables para evitar espacios accidentales.
   return parseAllowedValues(process.env.ACTUALIDAD_ADMIN_USER_IDS);
 }
 
@@ -42,6 +40,26 @@ function getAllowedAdminEmails() {
 
 function getAllowedAdminUsernames() {
   return parseAllowedValues(process.env.ACTUALIDAD_ADMIN_USERNAMES);
+}
+
+async function readOptionalProfile() {
+  try {
+    const user = await currentUser();
+    if (!user) return null;
+
+    const username = user.username?.trim() || undefined;
+    const emails = user.emailAddresses
+      .map((entry) => entry.emailAddress.trim().toLowerCase())
+      .filter(Boolean);
+    const primaryEmail =
+      user.primaryEmailAddress?.emailAddress?.trim().toLowerCase() ||
+      emails[0] ||
+      undefined;
+
+    return { username, emails, primaryEmail };
+  } catch {
+    return null;
+  }
 }
 
 export async function getActualidadAdminAccess(): Promise<ActualidadAdminAccess> {
@@ -60,7 +78,6 @@ export async function getActualidadAdminAccess(): Promise<ActualidadAdminAccess>
   const allowedEmails = getAllowedAdminEmails();
   const allowedUsernames = getAllowedAdminUsernames();
 
-  // Fail closed: si no se configuró ningún administrador, nadie entra.
   if (
     !allowedUserIds.length &&
     !allowedEmails.length &&
@@ -69,71 +86,62 @@ export async function getActualidadAdminAccess(): Promise<ActualidadAdminAccess>
     return { status: "denied", userId, identifier: userId };
   }
 
-  // Método principal y más robusto: el ID viene directamente de la sesión
-  // validada por Clerk y no requiere una segunda consulta al Backend API.
-  if (allowedUserIds.includes(userId.toLowerCase())) {
+  const userIdAllowed = allowedUserIds.includes(userId.toLowerCase());
+
+  // El User ID de Clerk sigue siendo la autorización principal.
+  // El perfil solo se consulta para mostrar un nombre legible y auditar mejor;
+  // si esa consulta falla, el acceso por User ID continúa funcionando.
+  if (userIdAllowed) {
+    const profile = await readOptionalProfile();
+    const identifier =
+      profile?.username ??
+      profile?.primaryEmail ??
+      userId;
+
     return {
       status: "authorized",
       userId,
-      identifier: userId,
+      identifier,
+      email: profile?.primaryEmail,
+      username: profile?.username,
     };
   }
 
-  // Métodos secundarios: username / email. Si Clerk no devuelve el perfil,
-  // el acceso sigue cerrado y mostramos el userId para poder autorizarlo.
-  try {
-    const user = await currentUser();
+  const profile = await readOptionalProfile();
+  if (!profile) {
+    return { status: "denied", userId, identifier: userId };
+  }
 
-    if (user) {
-      const username = user.username?.trim() || undefined;
-      const normalizedUsername = username?.toLowerCase();
+  const normalizedUsername = profile.username?.toLowerCase();
+  const matchedEmail = profile.emails.find((email) =>
+    allowedEmails.includes(email),
+  );
+  const usernameAllowed = Boolean(
+    normalizedUsername &&
+      allowedUsernames.includes(normalizedUsername),
+  );
 
-      const userEmails = user.emailAddresses
-        .map((entry: { emailAddress: string }) =>
-          entry.emailAddress.trim().toLowerCase(),
-        )
-        .filter(Boolean);
+  if (matchedEmail || usernameAllowed) {
+    const identifier = usernameAllowed
+      ? profile.username!
+      : matchedEmail!;
 
-      const matchedEmail = userEmails.find((email: string) =>
-        allowedEmails.includes(email),
-      );
-
-      const usernameAllowed = Boolean(
-        normalizedUsername &&
-          allowedUsernames.includes(normalizedUsername),
-      );
-
-      if (matchedEmail || usernameAllowed) {
-        const identifier = usernameAllowed
-          ? username!
-          : matchedEmail!;
-
-        return {
-          status: "authorized",
-          userId,
-          identifier,
-          email: matchedEmail,
-          username,
-        };
-      }
-
-      return {
-        status: "denied",
-        userId,
-        identifier:
-          username ??
-          user.primaryEmailAddress?.emailAddress ??
-          userId,
-      };
-    }
-  } catch {
-    // No relajamos la seguridad si falla la consulta al perfil.
+    return {
+      status: "authorized",
+      userId,
+      identifier,
+      email: matchedEmail ?? profile.primaryEmail,
+      username: profile.username,
+    };
   }
 
   return {
     status: "denied",
     userId,
-    identifier: userId,
+    identifier:
+      profile.username ??
+      profile.primaryEmail ??
+      userId,
   };
 }
 

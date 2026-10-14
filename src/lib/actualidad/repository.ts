@@ -102,6 +102,102 @@ function rowToActualidadItem(row: NewsRow): ActualidadItem {
   };
 }
 
+
+type NaturalLegalKey = {
+  key: string;
+  token: string;
+};
+
+function normalizeLegalText(value: string) {
+  return value
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase()
+    .replace(/[“”\"']/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function inferLegalIssuer(text: string, sourceKey?: ActualidadSourceKey) {
+  if (sourceKey === "uif") return "uif";
+  if (sourceKey === "bcra") return "bcra";
+  if (sourceKey === "cnv") return "cnv";
+  if (sourceKey === "igj") return "igj";
+  if (sourceKey === "aaip") return "aaip";
+
+  const normalized = normalizeLegalText(text);
+  if (/unidad de informacion financiera|\buif\b/.test(normalized)) return "uif";
+  if (/banco central de la republica argentina|\bbcra\b/.test(normalized)) return "bcra";
+  if (/comision nacional de valores|\bcnv\b/.test(normalized)) return "cnv";
+  if (/inspeccion general de justicia|\bigj\b/.test(normalized)) return "igj";
+  if (/agencia de acceso a la informacion publica|\baaip\b/.test(normalized)) return "aaip";
+  return undefined;
+}
+
+function extractNaturalLegalKey(input: {
+  title: string;
+  summary?: string;
+  sourceKey?: ActualidadSourceKey;
+}): NaturalLegalKey | null {
+  const text = normalizeLegalText(`${input.title}. ${input.summary ?? ""}`);
+  const issuer = inferLegalIssuer(text, input.sourceKey);
+  if (!issuer) return null;
+
+  const resolution = text.match(
+    /\bresolucion\s+(general\s+)?(?:uif\s+|cnv\s+|igj\s+|aaip\s+)?(?:n(?:ro|umero)?\.?\s*)?(\d{1,6})\s*[\/-]\s*(20\d{2})\b/,
+  );
+  if (resolution) {
+    const type = resolution[1] ? "resolucion-general" : "resolucion";
+    const token = `${resolution[2]}/${resolution[3]}`;
+    return { key: `${issuer}:${type}:${token}`, token };
+  }
+
+  if (issuer === "bcra") {
+    const communication = text.match(
+      /\bcomunicacion\s+([abc])\s*(?:n(?:ro|umero)?\.?\s*)?(\d{3,7})\b/,
+    );
+    if (communication) {
+      const token = communication[2];
+      return {
+        key: `${issuer}:comunicacion-${communication[1]}:${token}`,
+        token,
+      };
+    }
+  }
+
+  return null;
+}
+
+async function findNaturalLegalDuplicate(
+  input: CreateActualidadInput,
+): Promise<NewsRow | null> {
+  const natural = extractNaturalLegalKey(input);
+  if (!natural) return null;
+
+  const sql = getActualidadSql();
+  const search = `%${natural.token}%`;
+  const rows = (await sql`
+    SELECT *
+    FROM actualidad_news_items
+    WHERE source_published_at >= NOW() - INTERVAL '4 years'
+      AND (title ILIKE ${search} OR summary ILIKE ${search})
+    ORDER BY created_at DESC
+    LIMIT 40
+  `) as NewsRow[];
+
+  for (const row of rows) {
+    const candidateKey = extractNaturalLegalKey({
+      title: row.title,
+      summary: row.summary,
+      sourceKey: (row.source_key as ActualidadSourceKey | null) ?? undefined,
+    });
+
+    if (candidateKey?.key === natural.key) return row;
+  }
+
+  return null;
+}
+
 function validateInput(input: CreateActualidadInput | UpdateActualidadInput) {
   if (!input.title.trim()) throw new Error("El título es obligatorio.");
   if (!input.sourceName.trim()) throw new Error("La fuente es obligatoria.");
@@ -256,6 +352,13 @@ export async function createActualidadItemIfNew(
 
   if (existingByUrl[0]) {
     return { created: false, item: rowToActualidadItem(existingByUrl[0]) };
+  }
+
+  // Si la misma resolución/comunicación apareció en el regulador y en el
+  // Boletín Oficial con URL distinta, la tratamos como una sola novedad.
+  const naturalDuplicate = await findNaturalLegalDuplicate(input);
+  if (naturalDuplicate) {
+    return { created: false, item: rowToActualidadItem(naturalDuplicate) };
   }
 
   const id = createActualidadId();

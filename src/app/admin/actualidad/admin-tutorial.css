@@ -1,0 +1,441 @@
+
+/* =========================================================
+   ACTUALIDAD — GUÍA DE PRIMER INGRESO + HISTORIAL
+   ========================================================= */
+
+.admin-guide-button {
+  position: fixed;
+  z-index: 75;
+  right: 22px;
+  bottom: 22px;
+  min-height: 42px;
+  padding: 9px 14px;
+  border: 1px solid rgba(177,138,75,.42);
+  background: #101e31;
+  color: #f7f6f2;
+  box-shadow: 0 14px 34px rgba(16,30,49,.2);
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.admin-guide-button:hover {
+  border-color: #dfc88f;
+}
+
+.admin-guide-backdrop {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  padding: 22px;
+  display: grid;
+  place-items: center;
+  background: rgba(16,30,49,.58);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+
+.admin-guide-dialog {
+  position: relative;
+  width: min(620px, 100%);
+  max-height: min(760px, calc(100vh - 44px));
+  overflow: auto;
+  padding: clamp(26px, 5vw, 44px);
+  border: 1px solid rgba(177,138,75,.34);
+  background: #f7f6f2;
+  color: #101e31;
+  box-shadow: 0 28px 90px rgba(0,0,0,.28);
+}
+
+.admin-guide-close {
+  position: absolute;
+  top: 13px;
+  right: 15px;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  background: transparent;
+  color: #536173;
+  cursor: pointer;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.admin-guide-progress {
+  margin: 0 42px 26px 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+
+.admin-guide-progress span {
+  height: 2px;
+  background: rgba(16,30,49,.12);
+}
+
+.admin-guide-progress span.is-active {
+  background: #b18a4b;
+}
+
+.admin-guide-eyebrow {
+  margin: 0 0 10px;
+  color: #8f6d38;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .11em;
+}
+
+.admin-guide-dialog h2 {
+  margin: 0;
+  max-width: 14ch;
+  font-family: var(--font-heading, Georgia), Georgia, serif;
+  font-size: clamp(34px, 5vw, 48px);
+  font-weight: 600;
+  line-height: .96;
+  letter-spacing: -.035em;
+}
+
+.admin-guide-body {
+  max-width: 54ch;
+  margin: 20px 0 0;
+  color: #536173;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.admin-guide-actions {
+  margin-top: 30px;
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  border-top: 1px solid rgba(16,30,49,.1);
+}
+
+.admin-guide-actions > div {
+  display: flex;
+  gap: 8px;
+}
+
+.admin-guide-secondary {
+  min-height: 40px;
+  padding: 8px 10px;
+  border: 0;
+  background: transparent;
+  color: #657182;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.admin-guide-start {
+  margin-top: 28px;
+  display: grid;
+  gap: 10px;
+}
+
+.admin-guide-choice-copy {
+  margin-bottom: 4px;
+}
+
+.admin-guide-choice-copy strong {
+  display: block;
+  font-size: 14px;
+}
+
+.admin-guide-choice-copy p {
+  margin: 5px 0 0;
+  color: #657182;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.admin-guide-choice {
+  position: relative;
+  width: 100%;
+  padding: 16px 18px;
+  display: grid;
+  gap: 5px;
+  text-align: left;
+  border: 1px solid rgba(16,30,49,.14);
+  background: #fff;
+  color: #101e31;
+  cursor: pointer;
+  font: inherit;
+}
+
+.admin-guide-choice:hover {
+  border-color: rgba(177,138,75,.72);
+}
+
+.admin-guide-choice.is-recommended {
+  border-color: rgba(177,138,75,.52);
+  background: rgba(177,138,75,.05);
+}
+
+.admin-guide-choice > span {
+  color: #8f6d38;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.admin-guide-choice > strong {
+  font-size: 14px;
+}
+
+.admin-guide-choice > small {
+  color: #657182;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.admin-guide-finish {
+  justify-self: end;
+}
+
+.admin-audit-panel {
+  width: min(1180px, 100%);
+  margin: 12px auto 0;
+  border: 1px solid rgba(16,30,49,.1);
+  background: rgba(255,255,255,.48);
+}
+
+.admin-audit-panel > summary {
+  min-height: 58px;
+  padding: 13px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.admin-audit-panel > summary::-webkit-details-marker {
+  display: none;
+}
+
+.admin-audit-panel > summary span {
+  color: #536173;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.admin-audit-panel > summary strong {
+  color: #8f6d38;
+  font-family: var(--font-heading, Georgia), Georgia, serif;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.admin-audit-list {
+  padding: 0 12px 12px;
+  display: grid;
+  gap: 7px;
+}
+
+.admin-audit-list article {
+  padding: 10px 12px;
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto;
+  gap: 4px 18px;
+  border: 1px solid rgba(16,30,49,.08);
+  background: #fff;
+}
+
+.admin-audit-list article > div {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 7px 10px;
+}
+
+.admin-audit-list article > div strong {
+  font-size: 11px;
+}
+
+.admin-audit-list article > div span {
+  color: #8f6d38;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.admin-audit-list article p {
+  grid-column: 1;
+  margin: 0;
+  color: #657182;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.admin-audit-list article small {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  color: #7a8390;
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.admin-audit-empty {
+  margin: 0;
+  padding: 14px;
+  color: #657182;
+  font-size: 11px;
+}
+
+@media (max-width: 760px) {
+  .admin-guide-button {
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .admin-guide-backdrop {
+    padding: 10px;
+    align-items: end;
+  }
+
+  .admin-guide-dialog {
+    width: 100%;
+    max-height: calc(100vh - 20px);
+    padding: 26px 20px 22px;
+  }
+
+  .admin-guide-actions {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+
+  .admin-guide-actions > div,
+  .admin-guide-actions .admin-button,
+  .admin-guide-secondary {
+    width: 100%;
+  }
+
+  .admin-audit-list article {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-audit-list article small {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
+
+
+/* =========================================================
+   ETAPA 11 — INICIO LIMPIO POR CUENTA
+   ========================================================= */
+
+.admin-guide-clean-start {
+  padding: 18px;
+  display: grid;
+  gap: 6px;
+  border: 1px solid rgba(177,138,75,.42);
+  background:
+    linear-gradient(135deg, rgba(177,138,75,.08), transparent 55%),
+    #fff;
+}
+
+.admin-guide-clean-start > span {
+  color: #8f6d38;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+
+.admin-guide-clean-start > strong {
+  font-family: var(--font-heading, Georgia), Georgia, serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.05;
+}
+
+.admin-guide-clean-start > p {
+  margin: 2px 0 0;
+  color: #657182;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.admin-history-panel {
+  width: min(1180px, 100%);
+  margin: 10px auto 0;
+  padding: 15px 17px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 26px;
+  border: 1px dashed rgba(16,30,49,.18);
+  background: rgba(255,255,255,.35);
+}
+
+.admin-history-panel.is-active {
+  border-style: solid;
+  border-color: rgba(177,138,75,.55);
+  background: rgba(177,138,75,.045);
+}
+
+.admin-history-panel > div:first-child {
+  display: grid;
+  gap: 4px;
+}
+
+.admin-history-panel > div:first-child > span {
+  color: #8f6d38;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.admin-history-panel > div:first-child > strong {
+  font-size: 13px;
+}
+
+.admin-history-panel p {
+  max-width: 760px;
+  margin: 0;
+  color: #657182;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.admin-history-action {
+  flex: 0 0 auto;
+  display: grid;
+  justify-items: end;
+  gap: 4px;
+}
+
+.admin-history-action > strong {
+  color: #8f6d38;
+  font-family: var(--font-heading, Georgia), Georgia, serif;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.admin-history-action > a {
+  font-size: 10px;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+  .admin-history-panel {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .admin-history-action {
+    justify-items: start;
+  }
+}

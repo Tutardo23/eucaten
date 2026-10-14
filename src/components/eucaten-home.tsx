@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
 import { siteContent } from "@/content/site";
+import { EucatenVideoModal } from "@/components/eucaten-video-modal";
 
 const whatsappNumber = siteContent.brand.phone.replace(/\D/g, "");
 const whatsappBase = `https://wa.me/${whatsappNumber}`;
@@ -430,6 +431,7 @@ export function EucatenHome() {
                   <span>{siteContent.hero.secondaryCta}</span><ArrowUpRight />
                 </a>
               </div>
+              <EucatenVideoModal />
             </div>
 
             <div className="hero-visual" aria-hidden="true">

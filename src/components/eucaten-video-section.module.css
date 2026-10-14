@@ -1,0 +1,359 @@
+.section {
+  position: relative;
+  z-index: 4;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 82% 48%, rgba(177, 138, 75, .08), transparent 28%),
+    #101e31;
+  color: #f7f6f2;
+  padding: clamp(42px, 5vw, 64px) 0;
+}
+
+.shell {
+  position: relative;
+  z-index: 2;
+  width: min(calc(100% - 40px), 1040px);
+  display: grid;
+  grid-template-columns: minmax(380px, 490px) minmax(280px, 390px);
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(48px, 8vw, 110px);
+}
+
+.mediaColumn {
+  width: 100%;
+}
+
+.mediaMeta {
+  margin-bottom: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  color: rgba(247, 246, 242, .46);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.frame {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 848 / 478;
+  border: 1px solid rgba(247, 246, 242, .14);
+  background: #0c2d47;
+  box-shadow: 0 22px 54px rgba(0, 0, 0, .18);
+}
+
+.video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #0c2d47;
+}
+
+.play {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 11px;
+  background:
+    linear-gradient(to top, rgba(3, 14, 24, .30), rgba(3, 14, 24, .02));
+  color: #f7f6f2;
+  cursor: pointer;
+  font: inherit;
+}
+
+.playCircle {
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(247, 246, 242, .55);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(16, 30, 49, .72);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.playCircle span {
+  margin-left: 3px;
+  font-size: 13px;
+}
+
+.playText {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.play:hover .playCircle {
+  transform: scale(1.06);
+  border-color: #d5b271;
+  background: rgba(16, 30, 49, .88);
+}
+
+.copy {
+  position: relative;
+  max-width: 390px;
+  padding: 10px 0 10px 28px;
+  border-left: 1px solid rgba(177, 138, 75, .55);
+}
+
+.kicker {
+  margin: 0 0 11px;
+  color: #d5b271;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.copy h2 {
+  max-width: 10ch;
+  margin: 0;
+  color: #f7f6f2;
+  font-family: var(--font-heading, Georgia), Georgia, serif;
+  font-size: clamp(34px, 3.6vw, 48px);
+  font-weight: 500;
+  line-height: .95;
+  letter-spacing: -.035em;
+}
+
+.body {
+  max-width: 37ch;
+  margin: 18px 0 0;
+  color: rgba(247, 246, 242, .65);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.index {
+  position: absolute;
+  top: -28px;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: rgba(247, 246, 242, .25);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+.index i {
+  width: 28px;
+  height: 1px;
+  background: rgba(177, 138, 75, .5);
+}
+
+.signature {
+  width: 88px;
+  margin-top: 24px;
+  display: grid;
+  gap: 4px;
+}
+
+.signature span {
+  display: block;
+  height: 1px;
+  transform-origin: left center;
+}
+
+.signature span:nth-child(1) {
+  width: 100%;
+  background: #b18a4b;
+  transform: rotate(-1.4deg);
+}
+
+.signature span:nth-child(2) {
+  width: 74%;
+  background: rgba(247, 246, 242, .34);
+  transform: rotate(.8deg);
+}
+
+.signature span:nth-child(3) {
+  width: 52%;
+  background: #b7bcc2;
+  opacity: .62;
+  transform: rotate(-.5deg);
+}
+
+.watermark {
+  position: absolute;
+  z-index: 1;
+  right: clamp(-80px, -3vw, -30px);
+  top: 50%;
+  width: clamp(210px, 19vw, 320px);
+  transform: translateY(-50%) rotate(8deg);
+  opacity: .035;
+  pointer-events: none;
+}
+
+.watermark img {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 900px) {
+  .shell {
+    grid-template-columns: minmax(340px, 500px) minmax(240px, 1fr);
+    gap: 42px;
+  }
+
+  .copy {
+    padding-left: 22px;
+  }
+
+  .copy h2 {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 720px) {
+  .section {
+    padding: 38px 0 44px;
+  }
+
+  .shell {
+    width: min(calc(100% - 36px), 1040px);
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .mediaColumn {
+    max-width: 540px;
+  }
+
+  .copy {
+    max-width: 560px;
+    padding: 2px 0 0;
+    border-left: 0;
+  }
+
+  .copy::before {
+    content: "";
+    display: block;
+    width: 34px;
+    height: 1px;
+    margin-bottom: 18px;
+    background: #b18a4b;
+  }
+
+  .copy h2 {
+    max-width: 13ch;
+    font-size: 34px;
+  }
+
+  .index {
+    display: none;
+  }
+
+  .watermark {
+    right: -80px;
+    top: 72%;
+    width: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mediaMeta {
+    font-size: 8px;
+  }
+
+  .playCircle {
+    width: 46px;
+    height: 46px;
+  }
+
+  .copy h2 {
+    font-size: 31px;
+  }
+
+  .body {
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .playCircle {
+    transition: none;
+  }
+}
+
+
+/* =========================================================
+   AJUSTE DE RITMO — HERO + VIDEO
+   El video institucional ahora sigue inmediatamente al hero.
+   En desktop compactamos únicamente el primer bloque para evitar
+   dos pantallas navy consecutivas demasiado largas.
+   ========================================================= */
+
+@media (min-width: 901px) {
+  :global(.hero-shell):has(+ .section) {
+    padding-top: 74px;
+  }
+
+  :global(.hero-shell):has(+ .section) :global(.hero) {
+    padding-top: clamp(38px, 4.1vw, 54px);
+    padding-bottom: clamp(44px, 4.5vw, 62px);
+  }
+
+  :global(.hero-shell):has(+ .section) :global(.hero-grid) {
+    gap: clamp(40px, 4vw, 54px);
+  }
+
+  :global(.hero-shell):has(+ .section) :global(.hero h1) {
+    font-size: clamp(54px, 4.65vw, 64px);
+    line-height: .95;
+  }
+
+  :global(.hero-shell):has(+ .section) :global(.hero-lead) {
+    max-width: 58ch;
+    margin-top: 22px;
+    font-size: 16.5px;
+    line-height: 1.58;
+  }
+
+  :global(.hero-shell):has(+ .section) :global(.hero-actions) {
+    margin-top: 26px;
+  }
+
+  :global(.hero-shell):has(+ .section) :global(.hero-visual) {
+    min-height: 395px;
+  }
+
+  :global(.hero-shell):has(+ .section) :global(.hero-logo-stage) {
+    width: min(100%, 475px);
+  }
+
+  :global(.hero-shell):has(+ .section) :global(.hero-isotipo) {
+    width: 70%;
+  }
+}
+
+@media (min-width: 1400px) {
+  :global(.hero-shell):has(+ .section) :global(.hero) {
+    padding-top: 42px;
+    padding-bottom: 56px;
+  }
+
+  :global(.hero-shell):has(+ .section) :global(.hero h1) {
+    font-size: 62px;
+  }
+
+  :global(.hero-shell):has(+ .section) :global(.hero-visual) {
+    min-height: 380px;
+  }
+}
