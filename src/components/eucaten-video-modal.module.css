@@ -26,6 +26,19 @@
   box-shadow: 0 18px 44px rgba(0, 0, 0, .22);
 }
 
+.expandHit {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  display: block;
+  overflow: hidden;
+  background: transparent;
+  cursor: pointer;
+}
+
 .video {
   display: block;
   width: 100%;
@@ -42,15 +55,52 @@
     linear-gradient(
       to top,
       rgba(5, 15, 25, .42) 0%,
-      rgba(5, 15, 25, .06) 44%,
-      transparent 72%
+      rgba(5, 15, 25, .04) 42%,
+      transparent 70%
     );
+}
+
+.expandLabel {
+  position: absolute;
+  z-index: 2;
+  top: 11px;
+  right: 11px;
+  min-height: 29px;
+  padding: 0 10px;
+  border: 1px solid rgba(247, 246, 242, .24);
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(16, 30, 49, .58);
+  color: rgba(247, 246, 242, .82);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  opacity: .78;
+  transition:
+    opacity 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.expandIcon {
+  color: #dfc88f;
+  font-size: 10px;
+}
+
+.expandHit:hover .expandLabel {
+  opacity: 1;
+  border-color: rgba(213, 178, 113, .66);
+  transform: translateY(-1px);
 }
 
 .playback,
 .sound {
   position: absolute;
-  z-index: 2;
+  z-index: 4;
   border: 0;
   color: #f7f6f2;
   cursor: pointer;
@@ -109,9 +159,119 @@
 }
 
 .playback:focus-visible,
-.sound:focus-visible {
+.sound:focus-visible,
+.expandHit:focus-visible {
   outline: 2px solid rgba(223, 200, 143, .75);
   outline-offset: 3px;
+}
+
+/* Ampliación ligera: no bloquea el scroll ni apaga la página. */
+.expandedLayer {
+  position: fixed;
+  z-index: 700;
+  inset: 0;
+  padding: 24px;
+  display: grid;
+  place-items: center;
+  background: rgba(16, 30, 49, .12);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.expandedCard {
+  width: min(900px, calc(100vw - 48px));
+  padding: 18px;
+  border: 1px solid rgba(177, 138, 75, .34);
+  background: #101e31;
+  color: #f7f6f2;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, .34);
+  animation: expandedIn 180ms ease-out both;
+}
+
+.expandedTopbar {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.expandedTopbar > div {
+  display: grid;
+  gap: 3px;
+}
+
+.expandedTopbar span {
+  color: #d5b271;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: .13em;
+}
+
+.expandedTopbar strong {
+  color: rgba(247, 246, 242, .9);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.close {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(247, 246, 242, .18);
+  display: grid;
+  place-items: center;
+  background: transparent;
+  color: rgba(247, 246, 242, .8);
+  cursor: pointer;
+  font: inherit;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.close:hover {
+  border-color: rgba(213, 178, 113, .64);
+  color: #fff;
+}
+
+.expandedFrame {
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 848 / 478;
+  border: 1px solid rgba(247, 246, 242, .12);
+  background: #0c2d47;
+}
+
+.expandedVideo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #0c2d47;
+}
+
+.expandedFooter {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  color: rgba(247, 246, 242, .34);
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+@keyframes expandedIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @media (min-width: 901px) {
@@ -136,6 +296,10 @@
     width: min(100%, 440px);
     margin-top: 26px;
   }
+
+  .expandedCard {
+    width: min(820px, calc(100vw - 32px));
+  }
 }
 
 @media (max-width: 620px) {
@@ -147,15 +311,51 @@
   .meta {
     font-size: 6.5px;
   }
+
+  .expandedLayer {
+    padding: 10px;
+  }
+
+  .expandedCard {
+    width: 100%;
+    padding: 11px;
+  }
+
+  .expandedTopbar {
+    margin-bottom: 9px;
+  }
+
+  .expandedTopbar strong {
+    font-size: 11px;
+  }
+
+  .expandedFooter span:first-child {
+    display: none;
+  }
+
+  .expandedFooter {
+    justify-content: flex-end;
+  }
 }
 
 @media (max-width: 480px) {
-  .heroVideo {
-    width: 100%;
-  }
-
   .sound {
     min-height: 26px;
     font-size: 7px;
+  }
+
+  .expandLabel {
+    min-height: 26px;
+    font-size: 7px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .expandLabel {
+    transition: none;
+  }
+
+  .expandedCard {
+    animation: none;
   }
 }
