@@ -431,6 +431,7 @@ export function EucatenHome() {
                   <span>{siteContent.hero.secondaryCta}</span><ArrowUpRight />
                 </a>
               </div>
+
               <EucatenVideoModal />
             </div>
 
@@ -438,7 +439,7 @@ export function EucatenHome() {
               <div className="hero-logo-stage">
                 <Image src="/brand/eucaten-isotipo.png" alt="" width={489} height={475} className={`hero-isotipo hero-logo-once${heroLogoReady ? " is-visible" : ""}`} priority sizes="(max-width: 900px) 70vw, 34vw" />
               </div>
-            </div>
+</div>
           </div>
         </section>
       </div>
